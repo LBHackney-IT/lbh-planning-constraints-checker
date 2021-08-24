@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/src.80ee2152.css">
+  <title>Constraints checker</title>
+  <style>body {
+      color: black;
+    }</style>
+<script src="/src.80ee2152.js"></script><link rel="stylesheet" href="/src.e31bb0bc.css"></head>
+
+ 
+<body class="govuk-template__body">
+  <script>document.body.className = document.body.className ? document.body.className + " js-enabled" : "js-enabled";</script>
+  <!-- Skip link goes here -->
+  <!-- Cookie banner goes here -->
+  <!-- Header goes here -->
+  <!-- Phase banner goes here -->
+  <!-- Announcements go here -->
+  <!-- Breadcrumbs go here -->
+  <main class="lbh-main-wrapper" id="main-content" role="main">
+    <!-- <div class="lbh-container"> -->
+      <!-- Main content components go here -->
+      <!-- <a href='./test.html'>Go to test proxy</a> -->
+      <div class="govuk-form-group lbh-form-group">
+        <label class="govuk-label  lbh-label" for="postcode">
+          Enter your postcode
+        </label>
+        <span id="error_message" class="govuk-error-message  lbh-error-message">
+          <span class="govuk-visually-hidden">Error:</span>
+        </span>
+        <br>
+        <input type="Search" class="govuk-input  lbh-input govuk-input--width-10" id="postcode" placeholder="Your postcode">
+
+      <button id="search" class="govuk-button  lbh-button" data-module="govuk-button" onclick="GetAddressesViaProxy()">
+        Find results
+      </button>
+    </div>
+
+      <div id="addresses"></div>
+      <div id="results"></div>
+      <div id="map-link"></div>
+
+  </main>
+  <!-- Put your path to the LBHFrontend JS File in the src attribute here -->
+  <script src="/src.e31bb0bc.js"></script>
+  <script src="/lbh-frontend-3.5.3.min.58f6215b.js"></script> 
+</body>
+<script src="/iframeResizer.contentWindow.min.c2adc9a6.js"></script>
+ 
+</html> 
