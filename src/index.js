@@ -230,9 +230,13 @@ function GetAddressesViaProxy() {
             //Activate the JS of the component
             initAll();
       
-            //Add link to the planning constraints map
-            document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/conservation-areas-with-search/index.html' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
-
+             //Link to the planning constraints map
+          //live test link
+          document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/conservation-areas-with-search/index.html?uprn="+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
+          //live link - not available yet
+          //document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/planning-constraints/fullscreen?uprn="+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
+          //local link
+          //document.getElementById("map-link").innerHTML = "<a href='http://localhost:9000/planning-constraints/fullscreen?uprn="+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
           })
           // .catch((error) => {
           //   //Catch geoserver error
@@ -322,7 +326,12 @@ function loadAddressAPIPageViaProxy (postcode, pg)  {
           initAll();
     
           //Link to the planning constraints map
-          document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/conservation-areas-with-search/index.html' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
+          //live test link
+          document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/conservation-areas-with-search/index.html?uprn="+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
+          //live link - not available yet
+          //document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/planning-constraints/fullscreen?uprn="+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
+          //local link
+          //document.getElementById("map-link").innerHTML = "<a href='http://localhost:9000/planning-constraints/fullscreen?uprn="+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
           })
       .catch((error) => {
         //Catch geoserver error
