@@ -1,4 +1,5 @@
-import { initAll } from "lbh-frontend";
+//import { initAll } from "lbh-frontend";
+import { Accordion } from "lbh-frontend";
 import '@fortawesome/fontawesome-free/css/all.css';
 import '@fortawesome/fontawesome-pro/css/all.css';
 
@@ -185,7 +186,7 @@ function GetAddressesViaProxy() {
           for (index = 0; index < a4d_list.length; ++index) {
             a4d_list_items+= `<li>` +a4d_list[index]+`</li>`
           }
-          console.log(a4d_list_items);
+          //console.log(a4d_list_items);
 
           textSection += 
             `<div class='govuk-accordion__section'>
@@ -215,9 +216,12 @@ function GetAddressesViaProxy() {
   
             //document.getElementById('results').innerHTML += "</div>";
             
-            //TODO Init only the accordion component
             //Activate the JS of the component
-            initAll();
+            const accordion = document.querySelector('[data-module="govuk-accordion"]')
+            if (accordion) {
+              new Accordion(accordion).init()
+            }
+            //initAll();
       
              //Link to the planning constraints map
           //live test link
@@ -379,20 +383,13 @@ function loadAddressAPIPageViaProxy (postcode, pg)  {
 
       //List the results using an acordion. 
         document.getElementById('results').innerHTML +="<h3>List of constraints</h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
-
-
-        // document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Article 4 Directions </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'>";
-        //   for (index = 0; index < a4d_list.length; ++index) {
-        //     document.getElementById('results').innerHTML +="<li>" +a4d_list[index]+"</li>";
-        //   };
-        // "</ul></div></div>"
-        //document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Article 4 Directions </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>" + res.data.features[0].properties.a4d_names +"</li></ul></div></div>";
-
-        //document.getElementById('results').innerHTML += "</div>";
         
-        //TODO Init only the accordion component
-        //Activate the JS of the component
-        initAll();
+       //Activate the JS of the component
+       const accordion = document.querySelector('[data-module="govuk-accordion"]')
+       if (accordion) {
+         new Accordion(accordion).init()
+       }
+        //initAll();
   
          //Link to the planning constraints map
       //live test link
