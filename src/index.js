@@ -178,10 +178,10 @@ function GetAddressesViaProxy() {
               </div>
             </div>`
             }
-
-          //TODO Split A4D list into list items
+          
+          //Split A4D names as list items
           let a4d_list = res.data.features[0].properties.a4d_names.split(","); 
-          let a4d_list_items; 
+          let a4d_list_items = ""; 
           for (index = 0; index < a4d_list.length; ++index) {
             a4d_list_items+= `<li>` +a4d_list[index]+`</li>`
           }
@@ -354,9 +354,9 @@ function loadAddressAPIPageViaProxy (postcode, pg)  {
 
       
 
-       //TODO Split A4D list into list items
-       let a4d_list = res.data.features[0].properties.a4d_names.split(","); 
-       let a4d_list_items;
+  //Split A4D names as list items
+  let a4d_list = res.data.features[0].properties.a4d_names.split(","); 
+  let a4d_list_items = ""; 
        
        for (index = 0; index < a4d_list.length; ++index) {
          a4d_list_items+= `<li>` +a4d_list[index]+`</li>`
