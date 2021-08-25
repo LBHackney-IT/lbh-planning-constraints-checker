@@ -180,25 +180,14 @@ function GetAddressesViaProxy() {
             }
 
           //TODO Split A4D list into list items
-          //let a4d_list = res.data.features[0].properties.a4d_names.split(","); 
-          // textSection += 
-          //   `<div class='govuk-accordion__section'>
-          //     <div class='govuk-accordion__section-header'>
-          //       <h5 class='govuk-accordion__section-heading'>
-          //       <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
-          //       Article 4 Directions
-          //       </span></h5>
-          //     </div>
-          //     <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-          //       <ul class='lbh-list lbh-list'>`   
-          //       for (index = 0; index < a4d_list.length; ++index) {
-          //         `<li>` +a4d_list[index]+`</li>`
-          //        }
-          //       `</ul>
-          //     </div>
-          //   </div>`;
+          let a4d_list = res.data.features[0].properties.a4d_names.split(","); 
+          let a4d_list_items; 
+          for (index = 0; index < a4d_list.length; ++index) {
+            a4d_list_items+= `<li>` +a4d_list[index]+`</li>`
+          }
+          console.log(a4d_list_items);
 
-            textSection += 
+          textSection += 
             `<div class='govuk-accordion__section'>
               <div class='govuk-accordion__section-header'>
                 <h5 class='govuk-accordion__section-heading'>
@@ -207,11 +196,11 @@ function GetAddressesViaProxy() {
                 </span></h5>
               </div>
               <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-                <ul class='lbh-list lbh-list'><li>`+ res.data.features[0].properties.a4d_names + `</li></ul>
+                <ul class='lbh-list lbh-list--bullet'>`   
+                + a4d_list_items +
+                `</ul>
               </div>
             </div>`;
-
-            
 
           //List the results using an acordion. 
             document.getElementById('results').innerHTML +="<h3>List of constraints</h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
@@ -363,39 +352,30 @@ function loadAddressAPIPageViaProxy (postcode, pg)  {
         </div>`
         }
 
-      //TODO Split A4D list into list items
-      //let a4d_list = res.data.features[0].properties.a4d_names.split(","); 
-      // textSection += 
-      //   `<div class='govuk-accordion__section'>
-      //     <div class='govuk-accordion__section-header'>
-      //       <h5 class='govuk-accordion__section-heading'>
-      //       <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
-      //       Article 4 Directions
-      //       </span></h5>
-      //     </div>
-      //     <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-      //       <ul class='lbh-list lbh-list'>`   
-      //       for (index = 0; index < a4d_list.length; ++index) {
-      //         `<li>` +a4d_list[index]+`</li>`
-      //        }
-      //       `</ul>
-      //     </div>
-      //   </div>`;
+      
 
-        textSection += 
-        `<div class='govuk-accordion__section'>
-          <div class='govuk-accordion__section-header'>
-            <h5 class='govuk-accordion__section-heading'>
-            <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
-            Article 4 Directions
-            </span></h5>
-          </div>
-          <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-            <ul class='lbh-list lbh-list'><li>`+ res.data.features[0].properties.a4d_names + `</li></ul>
-          </div>
-        </div>`;
+       //TODO Split A4D list into list items
+       let a4d_list = res.data.features[0].properties.a4d_names.split(","); 
+       let a4d_list_items;
+       
+       for (index = 0; index < a4d_list.length; ++index) {
+         a4d_list_items+= `<li>` +a4d_list[index]+`</li>`
+       }
 
-        
+       textSection += 
+         `<div class='govuk-accordion__section'>
+           <div class='govuk-accordion__section-header'>
+             <h5 class='govuk-accordion__section-heading'>
+             <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
+             Article 4 Directions
+             </span></h5>
+           </div>
+           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
+            <ul class='lbh-list lbh-list--bullet'>`    
+             + a4d_list_items +
+             `</ul>
+           </div>
+         </div>`;
 
       //List the results using an acordion. 
         document.getElementById('results').innerHTML +="<h3>List of constraints</h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
