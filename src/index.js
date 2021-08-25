@@ -277,62 +277,151 @@ function loadAddressAPIPageViaProxy (postcode, pg)  {
     })
     .then((res) => {
       console.log(res.data)
-     const iswithinCA = res.data.features[0].properties.within_conservation_area;
-     const iswithinLocallyListedBuilding = res.data.features[0].properties.within_locally_building;
-     const iswithinListedBuilding = res.data.features[0].properties.within_statutory_building;
-     const iswithinTPOArea= res.data.features[0].properties.within_tpo_area;
-     const containsTPOPoint= res.data.features[0].properties.contains_tpo_point;
+      //Variables
+       const iswithinCA = res.data.features[0].properties.within_conservation_area;
+       const iswithinLocallyListedBuilding = res.data.features[0].properties.within_locally_building;
+       const iswithinListedBuilding = res.data.features[0].properties.within_statutory_building;
+       const iswithinTPOArea= res.data.features[0].properties.within_tpo_area;
+       const containsTPOPoint= res.data.features[0].properties.contains_tpo_point;
 
-   
-           //List the results using an acordion. 
-           //TODO Merge everything in one acordion
-           
-           //document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'><span><i class='far fa-map-marker'></i></span>Conservation Areas</span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>CA Name</li></ul></div></div>";
-          
-          document.getElementById("results").innerHTML +="<h3>List of constraints</h3";
+       let textSection = "";
 
-          //document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>";
-           
-          if (iswithinCA === 'yes'){
-            document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Conservation Areas </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>" + "Name: " + res.data.features[0].properties.ca_name +"</li></ul></div></div>";
-           }
-          if (iswithinListedBuilding === 'yes'){
-            document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Statutory Listed Buildings </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>" + "List entry number: " + res.data.features[0].properties.statutory_building_list_entry +  "<br> Date first listed: " + res.data.features[0].properties.statutory_building_listed_date + "<br> Grade: "+ res.data.features[0].properties.statutory_building_grade + "<br> For more information, visit the " + "<a href='"+ res.data.features[0].properties.statutory_building_hyperlink+"' target='_black'>Historic England website.</a>" + "</li></ul></div></div>";
-          }
-          if (iswithinLocallyListedBuilding  === 'yes'){
-            document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Locally Listed Buildings </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>" + "List entry number: " + res.data.features[0].properties.locally_building_list_entry + "<br> Date first listed: " + res.data.features[0].properties.locally_building_listed_date + "<br> Grade: " + res.data.features[0].properties.locally_building_grade +"<br> For more information, visit the " + "<a href='"+ res.data.features[0].properties.locally_building_hyperlink+"' target='_black'>Historic England website.</a>" + "</li></ul></div></div>";
-          }
+        if (iswithinCA === 'yes'){ 
+          textSection += 
+          `<div class='govuk-accordion__section'>
+            <div class='govuk-accordion__section-header'>
+              <h5 class='govuk-accordion__section-heading'>
+              <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
+              Conservation Areas 
+              </span></h5>
+            </div>
+            <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
+              <ul class='lbh-list lbh-list'><li>Name: ` + res.data.features[0].properties.ca_name + `</li></ul>
+            </div>
+          </div>`;
+        }
+        if (iswithinListedBuilding === 'yes'){
+          textSection += 
+          `<div class='govuk-accordion__section'>
+            <div class='govuk-accordion__section-header'>
+              <h5 class='govuk-accordion__section-heading'>
+              <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
+              Statutory Listed Building
+              </span></h5>
+            </div>
+            <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
+              <ul class='lbh-list lbh-list'><li>List entry number: ` + res.data.features[0].properties.statutory_building_list_entry +  `<br> Date first listed: ` + res.data.features[0].properties.statutory_building_listed_date + `<br> Grade: `+ res.data.features[0].properties.statutory_building_grade + `<br> For more information, visit the ` + `<a href='`+ res.data.features[0].properties.statutory_building_hyperlink+`' target='_black'>Historic England website.</a></li></ul>
+            </div>
+          </div>`;
 
-          if (iswithinTPOArea === 'yes' || containsTPOPoint === 'yes' ){
-            //TODO Merge the accordion for TPO area and points
-            document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Tree Preservation Orders </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>" + "<br> TPO number: "+ res.data.features[0].properties.tpo_area_number + "<br> TPO Specie: " +  +  res.data.features[0].properties.tpo_area_specie +"</li></ul></div></div>";
-            document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Tree Preservation Orders </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>" + "<br> TPO number: "+ res.data.features[0].properties.tpo_point_number + "<br> TPO Specie: " +  +  res.data.features[0].properties.tpo_point_specie +"</li></ul></div></div>";
-          }
-          
-          //TODO Comment out the code for the a4d list
-          // const a4d_list = res.data.features[0].properties.a4d_names.split(",");
-          
-          // document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Article 4 Directions </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'>";
-          //   for (index = 0; index < a4d_list.length; ++index) {
-          //     document.getElementById('results').innerHTML +="<li>" +a4d_list[index]+"</li>";
-          //   };
-          // "</ul></div></div>"
-          document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Article 4 Directions </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>" + res.data.features[0].properties.a4d_names +"</li></ul></div></div>";
+        }
 
-          //document.getElementById('results').innerHTML += "</div>";
-          
-          //TODO Init only the accordion component
-          //Activate the JS of the component
-          initAll();
-    
-          //Link to the planning constraints map
-          //live test link
-          document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/conservation-areas-with-search/index.html?uprn="+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
-          //live link - not available yet
-          //document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/planning-constraints/fullscreen?uprn="+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
-          //local link
-          //document.getElementById("map-link").innerHTML = "<a href='http://localhost:9000/planning-constraints/fullscreen?uprn="+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
-          })
+        if (iswithinLocallyListedBuilding === 'yes'){
+          textSection += 
+          `<div class='govuk-accordion__section'>
+            <div class='govuk-accordion__section-header'>
+              <h5 class='govuk-accordion__section-heading'>
+              <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
+              Locally Listed Building
+              </span></h5>
+            </div>
+            <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
+              <ul class='lbh-list lbh-list'><li>List entry number: ` + res.data.features[0].properties.locally_building_list_entry +  `<br> Date first listed: ` + res.data.features[0].properties.locally_building_listed_date + `<br> Grade: `+ res.data.features[0].properties.locally_building_grade + `<br> For more information, visit the ` + `<a href='`+ res.data.features[0].properties.locally_building_hyperlink+`' target='_black'>Historic England website.</a></li></ul>
+            </div>
+          </div>`;
+
+        }
+
+        
+        if (iswithinTPOArea === 'yes'){
+          textSection += 
+          `<div class='govuk-accordion__section'>
+          <div class='govuk-accordion__section-header'>
+            <h5 class='govuk-accordion__section-heading'>
+            <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
+            Tree Preservation Orders (TPOs)
+            </span></h5>
+          </div>
+          <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
+            <ul class='lbh-list lbh-list'><li>TPO number: ` + res.data.features[0].properties.tpo_area_number +  `<br> Specie: ` + res.data.features[0].properties.tpo_area_specie +  `</a></li></ul>
+            </div>
+        </div>`
+        }
+
+        if (containsTPOPoint === 'yes'){
+          textSection += 
+          `<div class='govuk-accordion__section'>
+          <div class='govuk-accordion__section-header'>
+            <h5 class='govuk-accordion__section-heading'>
+            <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
+            Tree Preservation Orders (TPOs)
+            </span></h5>
+          </div>
+          <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
+            <ul class='lbh-list lbh-list'><li>TPO number: ` + res.data.features[0].properties.tpo_point_number +  `<br> Specie: ` + res.data.features[0].properties.tpo_point_specie +  `</a></li></ul>
+          </div>
+        </div>`
+        }
+
+      //TODO Split A4D list into list items
+      //let a4d_list = res.data.features[0].properties.a4d_names.split(","); 
+      // textSection += 
+      //   `<div class='govuk-accordion__section'>
+      //     <div class='govuk-accordion__section-header'>
+      //       <h5 class='govuk-accordion__section-heading'>
+      //       <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
+      //       Article 4 Directions
+      //       </span></h5>
+      //     </div>
+      //     <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
+      //       <ul class='lbh-list lbh-list'>`   
+      //       for (index = 0; index < a4d_list.length; ++index) {
+      //         `<li>` +a4d_list[index]+`</li>`
+      //        }
+      //       `</ul>
+      //     </div>
+      //   </div>`;
+
+        textSection += 
+        `<div class='govuk-accordion__section'>
+          <div class='govuk-accordion__section-header'>
+            <h5 class='govuk-accordion__section-heading'>
+            <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
+            Article 4 Directions
+            </span></h5>
+          </div>
+          <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
+            <ul class='lbh-list lbh-list'><li>`+ res.data.features[0].properties.a4d_names + `</li></ul>
+          </div>
+        </div>`;
+
+        
+
+      //List the results using an acordion. 
+        document.getElementById('results').innerHTML +="<h3>List of constraints</h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
+
+
+        // document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Article 4 Directions </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'>";
+        //   for (index = 0; index < a4d_list.length; ++index) {
+        //     document.getElementById('results').innerHTML +="<li>" +a4d_list[index]+"</li>";
+        //   };
+        // "</ul></div></div>"
+        //document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Article 4 Directions </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>" + res.data.features[0].properties.a4d_names +"</li></ul></div></div>";
+
+        //document.getElementById('results').innerHTML += "</div>";
+        
+        //TODO Init only the accordion component
+        //Activate the JS of the component
+        initAll();
+  
+         //Link to the planning constraints map
+      //live test link
+      document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/conservation-areas-with-search/index.html?uprn="+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
+      //live link - not available yet
+      //document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/planning-constraints/fullscreen?uprn="+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
+      //local link
+      //document.getElementById("map-link").innerHTML = "<a href='http://localhost:9000/planning-constraints/fullscreen?uprn="+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
+      })
       .catch((error) => {
         //Catch geoserver error
         document.getElementById("error_message").innerHTML = 'Sorry, there was a problem retrieving the results for this address.';
