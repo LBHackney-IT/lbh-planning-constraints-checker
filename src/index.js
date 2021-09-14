@@ -17,6 +17,9 @@ postcode.addEventListener('keyup', (e) => {
   }
 });
 
+//eventlistener for the button
+document.getElementById("search").addEventListener("click", GetAddressesViaProxy);
+
 //listener for the clear x in the input
 postcode.addEventListener("search", (e) => {
   document.getElementById("error_message").innerHTML = "";
@@ -223,11 +226,11 @@ function GetAddressesViaProxy() {
             //document.getElementById('results').innerHTML += "</div>";
             
             //Activate the JS of the component
-            const accordion = document.querySelector('[data-module="govuk-accordion"]')
+            const accordion = document.querySelector('[data-module="govuk-accordion"]');
             if (accordion) {
               new Accordion(accordion).init();
             }
-            //initAll();
+            
       
              //Link to the planning constraints map
           //live test link
@@ -248,12 +251,10 @@ function GetAddressesViaProxy() {
   }
   }
   )
- 
-  
 };
 
 //function to add one page of results to the options list
-function loadAddressAPIPageViaProxy (postcode, pg)  {
+function loadAddressAPIPageViaProxy(postcode, pg) {
   let results = null;
   let full_address = null;
   let UPRN = null;
