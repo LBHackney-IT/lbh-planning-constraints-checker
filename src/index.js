@@ -21,7 +21,7 @@ postcode.addEventListener('keyup', (e) => {
 postcode.addEventListener("search", (e) => {
   document.getElementById("error_message").innerHTML = "";
   document.getElementById("addresses").innerHTML = '';
-  document.getElementById("results").innerHTML = ""
+  document.getElementById("results").innerHTML = "";
 });
 
 function GetAddressesViaProxy() {
@@ -30,7 +30,7 @@ function GetAddressesViaProxy() {
   document.getElementById("error_message").innerHTML = "";
   document.getElementById("addresses").innerHTML = 'Loading addresses...';
   document.getElementById("map-link").innerHTML = "";
-  document.getElementById("results").innerHTML = ""
+  document.getElementById("results").innerHTML = "";
 
   //Get the postcode value
   let postcode = document.getElementById("postcode").value;
@@ -38,7 +38,7 @@ function GetAddressesViaProxy() {
   let full_address = null;
   let UPRN = null;
 
-  document.getElementById("results").innerHTML = ""
+  document.getElementById("results").innerHTML = "";
 
   //First call to get the list of addresses from a postcode
   fetch(`${process.env.ADDRESSES_API_PROXY_PROD}?format=detailed&postcode=${postcode}`, {
@@ -61,11 +61,15 @@ function GetAddressesViaProxy() {
       document.getElementById("error_message").innerHTML = "No address found at this postcode";
     }else {
 
-    //If there are results from the addresses proxy, we list them. 
+      //If there are results from the addresses proxy, we list them. 
+      //first, replace list element with a clone of itself, in order to remove previous listeners
+      //let listElement = document.getElementById("addresses");
+      document.getElementById("addresses").replaceWith(document.getElementById("addresses").cloneNode(true));
+      //now fill the list
       document.getElementById("addresses").innerHTML = "<div class='govuk-form-group lbh-form-group'>"
         + "<select class='govuk-select govuk-!-width-full lbh-select' id='selectedAddress' name='selectedAddress'>";
 
-      document.getElementById("selectedAddress").innerHTML += "<option disabled selected value> Select your address from the list </option>";
+      document.getElementById("selectedAddress").innerHTML = "<option disabled selected value> Select your address from the list </option>";
       for (index = 0; index < results.length; ++index) {
     
         full_address = [results[index].line1, results[index].line2, results[index].line3, results[index].line4].filter(Boolean).join(", ");
@@ -77,7 +81,7 @@ function GetAddressesViaProxy() {
 
       //load more pages of results if needed
       if (pageCount > 1) {
-        for (pgindex = 2 ; pgindex<=pageCount ; ++pgindex){
+        for (let pgindex = 2 ; pgindex<=pageCount ; ++pgindex){
           loadAddressAPIPageViaProxy(postcode, pgindex);
         }
       }
@@ -87,21 +91,23 @@ function GetAddressesViaProxy() {
 
       //capture the change event - when an address is selected - we load the list of results (all the planning constrainst affecting the selected address) using the UPRN selected. 
       document.getElementById("addresses").addEventListener('change', (event) => {
+        console.log('one event');
         //get the selected UPRN from the list of addresses
         let selectedUPRN = document.querySelector('#selectedAddress').value;
+        console.log('uprn = ' + selectedUPRN);
         //call to the planning constraints layer where we have all the planning information for each UPRN
-        axios.get(`${process.env.GEOSERVER_URL}?service=WFS&version=1.0.0&request=GetFeature&outputFormat=json&typeName=planning_constraints_by_uprn&cql_filter=uprn='${selectedUPRN}'`, {
-        })
+        axios.get(`${process.env.GEOSERVER_URL}?service=WFS&version=1.0.0&request=GetFeature&outputFormat=json&typeName=planning_constraints_by_uprn&cql_filter=uprn='${selectedUPRN}'`)
           .then((res) => {
-          console.log(res.data)
-          //Variables
-           const iswithinCA = res.data.features[0].properties.within_conservation_area;
-           const iswithinLocallyListedBuilding = res.data.features[0].properties.within_locally_building;
-           const iswithinListedBuilding = res.data.features[0].properties.within_statutory_building;
-           const iswithinTPOArea= res.data.features[0].properties.within_tpo_area;
-           const containsTPOPoint= res.data.features[0].properties.contains_tpo_point;
+            console.log('resp once');
+            console.log(res.data);
+            //Variables
+            const iswithinCA = res.data.features[0].properties.within_conservation_area;
+            const iswithinLocallyListedBuilding = res.data.features[0].properties.within_locally_building;
+            const iswithinListedBuilding = res.data.features[0].properties.within_statutory_building;
+            const iswithinTPOArea= res.data.features[0].properties.within_tpo_area;
+            const containsTPOPoint= res.data.features[0].properties.contains_tpo_point;
 
-           let textSection = "";
+            let textSection = "";
 
             if (iswithinCA === 'yes'){ 
               textSection += 
@@ -203,8 +209,8 @@ function GetAddressesViaProxy() {
               </div>
             </div>`;
 
-          //List the results using an acordion. 
-            document.getElementById('results').innerHTML +="<h3>List of constraints</h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
+            //List the results using an acordion. 
+            document.getElementById('results').innerHTML = "<h3>List of constraints</h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
   
   
             // document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Article 4 Directions </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'>";
@@ -219,7 +225,7 @@ function GetAddressesViaProxy() {
             //Activate the JS of the component
             const accordion = document.querySelector('[data-module="govuk-accordion"]')
             if (accordion) {
-              new Accordion(accordion).init()
+              new Accordion(accordion).init();
             }
             //initAll();
       
@@ -248,162 +254,23 @@ function GetAddressesViaProxy() {
 
 //function to add one page of results to the options list
 function loadAddressAPIPageViaProxy (postcode, pg)  {
-  const res = fetch(`${process.env.ADDRESSES_API_PROXY_PROD}?format=detailed&postcode=${postcode}&page=${pg}`);
-  // const res = await fetch(`${process.env.ADDRESSES_API_PROXY_STAGING}?format=detailed&postcode=${postcode}&page=${pg}`);
-  const response = res.json();
-  
-  results = (response.data.data.address);
-  //console.log(results);
-  for (index = 0; index < results.length; ++index) {
-    
-    full_address = [results[index].line1, results[index].line2, results[index].line3, results[index].line4].filter(Boolean).join(", ");
-    UPRN = results[index].UPRN;
-    //console.log(coordinatesEN);
-
-
-    document.getElementById("selectedAddress").innerHTML += "<option value='" + UPRN + "'>" + full_address + "</option>";
-  }
-
-  document.getElementById("addresses").addEventListener('change', (event) => {
-    let selectedUPRN = document.querySelector('#selectedAddress').value;
-    axios.get(`${process.env.GEOSERVER_URL}?service=WFS&version=1.0.0&request=GetFeature&outputFormat=json&typeName=planning_constraints_by_uprn&cql_filter=uprn='${selectedUPRN}'`, {
-    })
-    .then((res) => {
-      console.log(res.data)
-      //Variables
-       const iswithinCA = res.data.features[0].properties.within_conservation_area;
-       const iswithinLocallyListedBuilding = res.data.features[0].properties.within_locally_building;
-       const iswithinListedBuilding = res.data.features[0].properties.within_statutory_building;
-       const iswithinTPOArea= res.data.features[0].properties.within_tpo_area;
-       const containsTPOPoint= res.data.features[0].properties.contains_tpo_point;
-
-       let textSection = "";
-
-        if (iswithinCA === 'yes'){ 
-          textSection += 
-          `<div class='govuk-accordion__section'>
-            <div class='govuk-accordion__section-header'>
-              <h5 class='govuk-accordion__section-heading'>
-              <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
-              Conservation Areas 
-              </span></h5>
-            </div>
-            <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-              <ul class='lbh-list lbh-list'><li>Name: ` + res.data.features[0].properties.ca_name + `</li></ul>
-            </div>
-          </div>`;
-        }
-        if (iswithinListedBuilding === 'yes'){
-          textSection += 
-          `<div class='govuk-accordion__section'>
-            <div class='govuk-accordion__section-header'>
-              <h5 class='govuk-accordion__section-heading'>
-              <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
-              Statutory Listed Building
-              </span></h5>
-            </div>
-            <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-              <ul class='lbh-list lbh-list'><li>List entry number: ` + res.data.features[0].properties.statutory_building_list_entry +  `<br> Date first listed: ` + res.data.features[0].properties.statutory_building_listed_date + `<br> Grade: `+ res.data.features[0].properties.statutory_building_grade + `<br> For more information, visit the ` + `<a href='`+ res.data.features[0].properties.statutory_building_hyperlink+`' target='_black'>Historic England website.</a></li></ul>
-            </div>
-          </div>`;
-
-        }
-
-        if (iswithinLocallyListedBuilding === 'yes'){
-          textSection += 
-          `<div class='govuk-accordion__section'>
-            <div class='govuk-accordion__section-header'>
-              <h5 class='govuk-accordion__section-heading'>
-              <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
-              Locally Listed Building
-              </span></h5>
-            </div>
-            <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-              <ul class='lbh-list lbh-list'><li>List entry number: ` + res.data.features[0].properties.locally_building_list_entry +  `<br> Date first listed: ` + res.data.features[0].properties.locally_building_listed_date + `<br> Grade: `+ res.data.features[0].properties.locally_building_grade + `<br> For more information, visit the ` + `<a href='`+ res.data.features[0].properties.locally_building_hyperlink+`' target='_black'>Historic England website.</a></li></ul>
-            </div>
-          </div>`;
-
-        }
-
-        
-        if (iswithinTPOArea === 'yes'){
-          textSection += 
-          `<div class='govuk-accordion__section'>
-          <div class='govuk-accordion__section-header'>
-            <h5 class='govuk-accordion__section-heading'>
-            <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
-            Tree Preservation Orders (TPOs)
-            </span></h5>
-          </div>
-          <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-            <ul class='lbh-list lbh-list'><li>TPO number: ` + res.data.features[0].properties.tpo_area_number +  `<br> Specie: ` + res.data.features[0].properties.tpo_area_specie +  `</a></li></ul>
-            </div>
-        </div>`
-        }
-
-        if (containsTPOPoint === 'yes'){
-          textSection += 
-          `<div class='govuk-accordion__section'>
-          <div class='govuk-accordion__section-header'>
-            <h5 class='govuk-accordion__section-heading'>
-            <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
-            Tree Preservation Orders (TPOs)
-            </span></h5>
-          </div>
-          <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-            <ul class='lbh-list lbh-list'><li>TPO number: ` + res.data.features[0].properties.tpo_point_number +  `<br> Specie: ` + res.data.features[0].properties.tpo_point_specie +  `</a></li></ul>
-          </div>
-        </div>`
-        }
-
-      
-
-  //Split A4D names as list items
-  let a4d_list = res.data.features[0].properties.a4d_names.split(","); 
-  let a4d_list_items = ""; 
-       
-       for (index = 0; index < a4d_list.length; ++index) {
-         a4d_list_items+= `<li>` +a4d_list[index]+`</li>`
-       }
-
-       textSection += 
-         `<div class='govuk-accordion__section'>
-           <div class='govuk-accordion__section-header'>
-             <h5 class='govuk-accordion__section-heading'>
-             <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
-             Article 4 Directions
-             </span></h5>
-           </div>
-           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-            <ul class='lbh-list lbh-list--bullet'>`    
-             + a4d_list_items +
-             `</ul>
-           </div>
-         </div>`;
-
-      //List the results using an acordion. 
-        document.getElementById('results').innerHTML +="<h3>List of constraints</h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
-        
-       //Activate the JS of the component
-       const accordion = document.querySelector('[data-module="govuk-accordion"]')
-       if (accordion) {
-         new Accordion(accordion).init()
-       }
-        //initAll();
-  
-         //Link to the planning constraints map
-      //live test link
-      document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/conservation-areas-with-search/index.html?zoom=17&uprn="+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
-      //live link - not available yet
-      //document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/planning-constraints/fullscreen?zoom=17&uprn"+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
-      //local link
-      //document.getElementById("map-link").innerHTML = "<a href='http://localhost:9000/planning-constraints/fullscreen?zoom=17&uprn"+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
-      })
-      .catch((error) => {
-        //Catch geoserver error
-        document.getElementById("error_message").innerHTML = 'Sorry, there was a problem retrieving the results for this address.';
-      })
-    
-});  
+  let results = null;
+  let full_address = null;
+  let UPRN = null;
+  fetch(`${process.env.ADDRESSES_API_PROXY_PROD}?format=detailed&postcode=${postcode}&page=${pg}`, {
+    method: "get"
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    results = data.data.data.address;
+    //console.log(results);
+    for (let index = 0; index < results.length; ++index) {      
+      full_address = [results[index].line1, results[index].line2, results[index].line3, results[index].line4].filter(Boolean).join(", ");
+      UPRN = results[index].UPRN;
+      //console.log(coordinatesEN);
+      document.getElementById("selectedAddress").innerHTML += "<option value='" + UPRN + "'>" + full_address + "</option>";
+    }
+  })
 };
 
