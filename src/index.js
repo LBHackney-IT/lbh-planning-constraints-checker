@@ -44,7 +44,7 @@ function GetAddressesViaProxy() {
   document.getElementById("results").innerHTML = "";
 
   //First call to get the list of addresses from a postcode
-  fetch(`${process.env.ADDRESSES_API_PROXY_PROD}?format=detailed&postcode=${postcode}`, {
+  fetch(`${process.env.ADDRESSES_API_PROXY_PROD}?format=detailed&query=${postcode}`, {
     method: "get"
   })
   .then(response => response.json())
@@ -61,7 +61,7 @@ function GetAddressesViaProxy() {
     let index = 0
     //If there are no results, the postcode is not right. 
     if (results.length === 0) {
-      document.getElementById("error_message").innerHTML = "No address found at this postcode";
+      document.getElementById("error_message").innerHTML = "No Hackney address found. Please amend your search.";
     }else {
 
       //If there are results from the addresses proxy, we list them. 
@@ -75,7 +75,9 @@ function GetAddressesViaProxy() {
       document.getElementById("selectedAddress").innerHTML = "<option disabled selected value> Select your address from the list </option>";
       for (index = 0; index < results.length; ++index) {
     
-        full_address = [results[index].line1, results[index].line2, results[index].line3, results[index].line4].filter(Boolean).join(", ");
+        // full_address = [results[index].line1, results[index].line2, results[index].line3, results[index].line4].filter(Boolean).join(", ");
+        full_address = results[index].singleLineAddress;
+
         UPRN = results[index].UPRN;
 
     
@@ -234,11 +236,11 @@ function GetAddressesViaProxy() {
       
              //Link to the planning constraints map
           //live test link
-      document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/conservation-areas-with-search/index.html?zoom=17&uprn="+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
+      // document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/conservation-areas-with-search/index.html?zoom=17&uprn="+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
       //live link - not available yet
       //document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/planning-constraints/fullscreen?zoom=17&uprn"+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
       //local link
-      //document.getElementById("map-link").innerHTML = "<a href='http://localhost:9000/planning-constraints/fullscreen?zoom=17&uprn"+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
+      document.getElementById("map-link").innerHTML = "<a href='http://localhost:9000/planning-constraints/index.html?zoom=17&uprn="+ UPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
           })
           // .catch((error) => {
           //   //Catch geoserver error
@@ -258,7 +260,7 @@ function loadAddressAPIPageViaProxy(postcode, pg) {
   let results = null;
   let full_address = null;
   let UPRN = null;
-  fetch(`${process.env.ADDRESSES_API_PROXY_PROD}?format=detailed&postcode=${postcode}&page=${pg}`, {
+  fetch(`${process.env.ADDRESSES_API_PROXY_PROD}?format=detailed&query=${postcode}&page=${pg}`, {
     method: "get"
   })
   .then(response => response.json())
@@ -267,7 +269,8 @@ function loadAddressAPIPageViaProxy(postcode, pg) {
     results = data.data.data.address;
     //console.log(results);
     for (let index = 0; index < results.length; ++index) {      
-      full_address = [results[index].line1, results[index].line2, results[index].line3, results[index].line4].filter(Boolean).join(", ");
+      // full_address = [results[index].line1, results[index].line2, results[index].line3, results[index].line4].filter(Boolean).join(", ");
+      full_address = results[index].singleLineAddress;
       UPRN = results[index].UPRN;
       //console.log(coordinatesEN);
       document.getElementById("selectedAddress").innerHTML += "<option value='" + UPRN + "'>" + full_address + "</option>";
