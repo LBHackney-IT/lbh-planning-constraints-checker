@@ -212,8 +212,8 @@ function GetAddressesViaProxy() {
               </div>
             </div>`;
 
-            //List the results using an acordion. 
-            document.getElementById('results').innerHTML = "<h3>List of constraints</h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
+            //List the results using an accordion. 
+            document.getElementById('results').innerHTML = "<h3>The following planning constraints apply to this property</h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
   
   
             // document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Article 4 Directions </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'>";

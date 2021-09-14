@@ -32,7 +32,7 @@
       <!-- <a href='./test.html'>Go to test proxy</a> -->
       <div class="govuk-form-group lbh-form-group">
         <label class="govuk-label  lbh-label" for="postcode">
-          Enter your postcode
+          Enter a Hackney address or postcode
         </label>
         <span id="error_message" class="govuk-error-message  lbh-error-message">
           <span class="govuk-visually-hidden">Error:</span>
@@ -45,13 +45,15 @@
         />
 
       <button id="search" class="govuk-button  lbh-button" data-module="govuk-button">
-        Find results
+        Find addresses
       </button>
     </div>
 
-      <div id="addresses"></div>
-      <div id="results"></div>
-      <div id="map-link"></div>
+    <p id="addresses"></p>
+
+    <!-- <div id="addresses"></div>-->
+    <div id="results" class="results-div"></div>
+    <div id="map-link"></div> 
 
   </main>
   <!-- Put your path to the LBHFrontend JS File in the src attribute here -->
