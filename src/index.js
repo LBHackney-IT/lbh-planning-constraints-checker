@@ -252,7 +252,7 @@ function loadPlanningConstraints(selectedUPRN){
         new Accordion(accordion).init();
       }
       //Link to the planning constraints map      
-      document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/planning-constraints/fullscreen?zoom=11&uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning constraints on a map</a>";
+      document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/planning-constraints/index.html?zoom=11&uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning constraints on a map</a>";
       //local test link
       // document.getElementById("map-link").innerHTML = "<a href='http://localhost:9000/planning-constraints/index.html?zoom=11&uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning constraints on a map</a>";
     })
