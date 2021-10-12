@@ -64,6 +64,7 @@ function GetAddressesViaProxy() {
       //If there are no results, the postcode is not right. 
       if (results.length === 0) {
         document.getElementById("error_message").innerHTML = "No Hackney address found. Please amend your search.";
+        document.getElementById("addresses").innerHTML = '';
       }
       else {
 
@@ -102,6 +103,9 @@ function GetAddressesViaProxy() {
         });  
       }
     }
+  }).catch(error => {
+    document.getElementById("error_message").innerHTML = "Sorry, an error occured while retrieving addresses";
+    document.getElementById("addresses").innerHTML = '';
   })
 };
 
