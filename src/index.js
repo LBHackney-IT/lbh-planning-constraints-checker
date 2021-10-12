@@ -51,7 +51,7 @@ function GetAddressesViaProxy() {
   })
   .then(response => response.json())
   .then(data => {
-    console.log(data);
+    //console.log(data);
     //Get API error messages if the UPRN values are not right
     if (data.data.errors) {
       document.getElementById("error_message").innerHTML = response.data.errors[0].message;
@@ -95,10 +95,10 @@ function GetAddressesViaProxy() {
 
         //capture the change event - when an address is selected - we load the list of results (all the planning constrainst affecting the selected address) using the UPRN selected. 
         document.getElementById("addresses").addEventListener('change', (event) => {
-          console.log('one event');
+          //console.log('one event');
           //get the selected UPRN from the list of addresses
           let selectedUPRN = document.querySelector('#selectedAddress').value;
-          console.log('uprn = ' + selectedUPRN);
+          //console.log('uprn = ' + selectedUPRN);
           loadPlanningConstraints(selectedUPRN);
         });  
       }
@@ -119,7 +119,7 @@ function loadAddressAPIPageViaProxy(postcode, pg) {
   })
   .then(response => response.json())
   .then(data => {
-    console.log(data);
+    //console.log(data);
     results = data.data.data.address;
     //console.log(results);
     for (let index = 0; index < results.length; ++index) {      
@@ -138,16 +138,18 @@ function loadPlanningConstraints(selectedUPRN){
   //call to the planning constraints layer where we have all the planning information for each UPRN
   axios.get(`${process.env.GEOSERVER_URL}?service=WFS&version=1.0.0&request=GetFeature&outputFormat=json&typeName=planning_constraints_by_uprn&cql_filter=uprn='${selectedUPRN}'`)
     .then((res) => {
-      console.log('resp once');
-      console.log(res.data);
+      //console.log(res.data);
       //Variables
       const iswithinCA = res.data.features[0].properties.within_conservation_area;
       const iswithinLocallyListedBuilding = res.data.features[0].properties.within_locally_building;
       const iswithinListedBuilding = res.data.features[0].properties.within_statutory_building;
       const iswithinTPOArea= res.data.features[0].properties.within_tpo_area;
       const containsTPOPoint= res.data.features[0].properties.contains_tpo_point;
+      const ward =res.data.features[0].properties.ward;
 
       let textSection = "";
+
+
 
       if (iswithinCA === 'yes'){ 
         textSection += 
@@ -250,7 +252,8 @@ function loadPlanningConstraints(selectedUPRN){
         </div>`;
 
       //List the results using an accordion. 
-      document.getElementById('results').innerHTML = "<h3>The following planning constraints apply to this property: </h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
+      document.getElementById('results').innerHTML = "<h3>The selected address is in " + ward + " ward.</h3>";
+      document.getElementById('results').innerHTML += "<h3>The following planning constraints apply to this property: </h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
             
       //Activate the JS of the component
       const accordion = document.querySelector('[data-module="govuk-accordion"]');
