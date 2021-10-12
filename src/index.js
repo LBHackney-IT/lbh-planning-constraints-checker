@@ -25,6 +25,8 @@ postcode.addEventListener("search", (e) => {
   document.getElementById("error_message").innerHTML = "";
   document.getElementById("addresses").innerHTML = '';
   document.getElementById("results").innerHTML = "";
+  document.getElementById("map-link").innerHTML = "";
+  document.getElementById("map-iframe").style.display= 'none';
 });
 
 function GetAddressesViaProxy() {
@@ -260,7 +262,7 @@ function loadPlanningConstraints(selectedUPRN){
       //load the map when clicking on the button
       document.getElementById("map-link").onclick = function loadMap() {
         //local test link
-        document.getElementById("map-iframe").src='http://localhost:9000/planning-constraints/embed?zoom=11&uprn='+ selectedUPRN;
+        document.getElementById("map-iframe").src='http://localhost:9000/planning-constraints/embed?uprn='+ selectedUPRN;
         //live link
         //document.getElementById("map-iframe").src='https://map2.hackney.gov.uk/maps/planning-constraints/embed?zoom=11&uprn='+ selectedUPRN;
         document.getElementById("map-iframe").style.display= 'block';
