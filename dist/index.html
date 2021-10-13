@@ -21,28 +21,31 @@
   <!-- Announcements go here -->
   <!-- Breadcrumbs go here -->
   <main class="lbh-main-wrapper" id="main-content" role="main">
-    <!-- <div class="lbh-container"> -->
+    <div class="lbh-container">
       <!-- Main content components go here -->
       <!-- <a href='./test.html'>Go to test proxy</a> -->
       <div class="govuk-form-group lbh-form-group">
         <label class="govuk-label  lbh-label" for="postcode">
-          Enter your postcode
+          Search for an address to explore planning constraints
         </label>
         <span id="error_message" class="govuk-error-message  lbh-error-message">
           <span class="govuk-visually-hidden">Error:</span>
         </span>
         <br>
-        <input type="Search" class="govuk-input  lbh-input govuk-input--width-10" id="postcode" placeholder="Your postcode">
+        <input type="Search" class="govuk-input  lbh-input govuk-input--width-10" id="postcode" placeholder="Hackney address or postcode">
 
-      <button id="search" class="govuk-button  lbh-button" data-module="govuk-button" onclick="GetAddressesViaProxy()">
-        Find results
-      </button>
+        <button id="search" class="govuk-button  lbh-button" data-module="govuk-button">
+          Find addresses
+        </button>
+      </div>
+
+      <p id="addresses"></p>
+
+      <!-- <div id="addresses"></div>-->
+      <div id="results" class="results-div"></div>
+      <div id="map-link"></div> 
+      <div id="div-map-iframe"><iframe id="map-iframe" src="" width="640" height="700" display="none"></iframe></div>
     </div>
-
-      <div id="addresses"></div>
-      <div id="results"></div>
-      <div id="map-link"></div>
-
   </main>
   <!-- Put your path to the LBHFrontend JS File in the src attribute here -->
   <script src="/src.e31bb0bc.js"></script>

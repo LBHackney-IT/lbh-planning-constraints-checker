@@ -25,6 +25,8 @@ postcode.addEventListener("search", (e) => {
   document.getElementById("error_message").innerHTML = "";
   document.getElementById("addresses").innerHTML = '';
   document.getElementById("results").innerHTML = "";
+  document.getElementById("map-link").innerHTML = "";
+  document.getElementById("map-iframe").style.display= 'none';
 });
 
 function GetAddressesViaProxy() {
@@ -49,7 +51,7 @@ function GetAddressesViaProxy() {
   })
   .then(response => response.json())
   .then(data => {
-    console.log(data);
+    //console.log(data);
     //Get API error messages if the UPRN values are not right
     if (data.data.errors) {
       document.getElementById("error_message").innerHTML = response.data.errors[0].message;
@@ -62,6 +64,7 @@ function GetAddressesViaProxy() {
       //If there are no results, the postcode is not right. 
       if (results.length === 0) {
         document.getElementById("error_message").innerHTML = "No Hackney address found. Please amend your search.";
+        document.getElementById("addresses").innerHTML = '';
       }
       else {
 
@@ -92,14 +95,17 @@ function GetAddressesViaProxy() {
 
         //capture the change event - when an address is selected - we load the list of results (all the planning constrainst affecting the selected address) using the UPRN selected. 
         document.getElementById("addresses").addEventListener('change', (event) => {
-          console.log('one event');
+          //console.log('one event');
           //get the selected UPRN from the list of addresses
           let selectedUPRN = document.querySelector('#selectedAddress').value;
-          console.log('uprn = ' + selectedUPRN);
+          //console.log('uprn = ' + selectedUPRN);
           loadPlanningConstraints(selectedUPRN);
         });  
       }
     }
+  }).catch(error => {
+    document.getElementById("error_message").innerHTML = "Sorry, an error occured while retrieving addresses";
+    document.getElementById("addresses").innerHTML = '';
   })
 };
 
@@ -113,7 +119,7 @@ function loadAddressAPIPageViaProxy(postcode, pg) {
   })
   .then(response => response.json())
   .then(data => {
-    console.log(data);
+    //console.log(data);
     results = data.data.data.address;
     //console.log(results);
     for (let index = 0; index < results.length; ++index) {      
@@ -132,16 +138,18 @@ function loadPlanningConstraints(selectedUPRN){
   //call to the planning constraints layer where we have all the planning information for each UPRN
   axios.get(`${process.env.GEOSERVER_URL}?service=WFS&version=1.0.0&request=GetFeature&outputFormat=json&typeName=planning_constraints_by_uprn&cql_filter=uprn='${selectedUPRN}'`)
     .then((res) => {
-      console.log('resp once');
-      console.log(res.data);
+      //console.log(res.data);
       //Variables
       const iswithinCA = res.data.features[0].properties.within_conservation_area;
       const iswithinLocallyListedBuilding = res.data.features[0].properties.within_locally_building;
       const iswithinListedBuilding = res.data.features[0].properties.within_statutory_building;
       const iswithinTPOArea= res.data.features[0].properties.within_tpo_area;
       const containsTPOPoint= res.data.features[0].properties.contains_tpo_point;
+      const ward =res.data.features[0].properties.ward;
 
       let textSection = "";
+
+
 
       if (iswithinCA === 'yes'){ 
         textSection += 
@@ -244,17 +252,29 @@ function loadPlanningConstraints(selectedUPRN){
         </div>`;
 
       //List the results using an accordion. 
-      document.getElementById('results').innerHTML = "<h3>The following planning constraints apply to this property: </h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
+      document.getElementById('results').innerHTML = "<h3>The selected address is in " + ward + " ward.</h3>";
+      document.getElementById('results').innerHTML += "<h3>The following planning constraints apply to this property: </h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
             
       //Activate the JS of the component
       const accordion = document.querySelector('[data-module="govuk-accordion"]');
       if (accordion) {
         new Accordion(accordion).init();
       }
-      //Link to the planning constraints map      
-      document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/planning-constraints/index.html?zoom=11&uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning constraints on a map</a>";
+      
+      //Add button to the planning constraints map  
+      //live link    
+      //document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/planning-constraints/index.html?zoom=11&uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning constraints on a map</a>";
       //local test link
-      // document.getElementById("map-link").innerHTML = "<a href='http://localhost:9000/planning-constraints/index.html?zoom=11&uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning constraints on a map</a>";
+      document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='http://localhost:9000/planning-constraints/index.html?zoom=11&uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning constraints on a map</button>";
+      //load the map when clicking on the button
+      document.getElementById("map-link").onclick = function loadMap() {
+        //local test link
+        document.getElementById("map-iframe").src='http://localhost:9000/planning-constraints/embed?uprn='+ selectedUPRN;
+        //live link
+        //document.getElementById("map-iframe").src='https://map2.hackney.gov.uk/maps/planning-constraints/embed?zoom=11&uprn='+ selectedUPRN;
+        document.getElementById("map-iframe").style.display= 'block';
+      }
+      
     })
     .catch((error) => {
       //Catch geoserver error
