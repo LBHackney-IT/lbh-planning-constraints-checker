@@ -36,6 +36,7 @@ function GetAddressesViaProxy() {
   document.getElementById("addresses").innerHTML = 'Loading addresses...';
   document.getElementById("map-link").innerHTML = "";
   document.getElementById("results").innerHTML = "";
+  document.getElementById("map-iframe").style.display= 'none';
 
   //Get the postcode value
   let postcode = document.getElementById("postcode").value;
@@ -135,6 +136,8 @@ function loadAddressAPIPageViaProxy(postcode, pg) {
 function loadPlanningConstraints(selectedUPRN){
   //message about loading
   document.getElementById('results').innerHTML = "<p>Retrieving planning constraints...</p>"; 
+  document.getElementById("map-link").innerHTML = "";
+  document.getElementById("map-iframe").style.display= 'none';
   //call to the planning constraints layer where we have all the planning information for each UPRN
   axios.get(`${process.env.GEOSERVER_URL}?service=WFS&version=1.0.0&request=GetFeature&outputFormat=json&typeName=planning_constraints_by_uprn&cql_filter=uprn='${selectedUPRN}'`)
     .then((res) => {
@@ -263,7 +266,7 @@ function loadPlanningConstraints(selectedUPRN){
       
       //Add button to the planning constraints map  
       //live link    
-      document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='https://map2.hackney.gov.uk/maps/planning-constraints/index.html?uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning constraints on a map</button>";
+      document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning constraints on a map</button>";
       //local test link
       //document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='http://localhost:9000/planning-constraints/index.html?uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning constraints on a map</button>";
       //load the map when clicking on the button
@@ -271,6 +274,7 @@ function loadPlanningConstraints(selectedUPRN){
         //local test link
         //document.getElementById("map-iframe").src='http://localhost:9000/planning-constraints/embed?uprn='+ selectedUPRN;
         //live link
+        // document.getElementById("map-iframe").style.display= 'none';
         document.getElementById("map-iframe").src='https://map2.hackney.gov.uk/maps/planning-constraints/embed?uprn='+ selectedUPRN;
         document.getElementById("map-iframe").style.display= 'block';
       }
