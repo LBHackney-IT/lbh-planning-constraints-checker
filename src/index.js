@@ -36,6 +36,7 @@ function GetAddressesViaProxy() {
   document.getElementById("addresses").innerHTML = 'Loading addresses...';
   document.getElementById("map-link").innerHTML = "";
   document.getElementById("results").innerHTML = "";
+  document.getElementById("map-iframe").style.display= 'none';
 
   //Get the postcode value
   let postcode = document.getElementById("postcode").value;
