@@ -263,9 +263,9 @@ function loadPlanningConstraints(selectedUPRN){
       
       //Add button to the planning constraints map  
       //live link    
-      document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/planning-constraints/index.html?&uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning constraints on a map</a>";
+      document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='https://map2.hackney.gov.uk/maps/planning-constraints/index.html?uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning constraints on a map</button>";
       //local test link
-      //document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='http://localhost:9000/planning-constraints/index.html?zoom=11&uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning constraints on a map</button>";
+      //document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='http://localhost:9000/planning-constraints/index.html?uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning constraints on a map</button>";
       //load the map when clicking on the button
       document.getElementById("map-link").onclick = function loadMap() {
         //local test link
