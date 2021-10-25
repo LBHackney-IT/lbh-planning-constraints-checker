@@ -21,8 +21,6 @@ $lbh-global-styles: true;
     margin: 0;
 }
 
-
-
 .govuk-input--width-10 {
     max-width: 380px;
 }
@@ -31,3 +29,7 @@ $lbh-global-styles: true;
     margin-top: 60px;
 }
 
+.lbh-container {
+    margin-right: auto;
+    margin-left: 5px;
+}
