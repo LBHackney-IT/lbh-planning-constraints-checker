@@ -243,7 +243,7 @@ function loadPlanningConstraints(selectedUPRN){
             </span></h5>
           </div>
           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-            <ul class='lbh-list lbh-list'><li>Planning App Reference Number: ` + res.data.features[0].properties.planning_app_ref_number +  `<br> Date it was received: ` + res.data.features[0].properties.planning_app_received_date + `<br> Proposal: `+ res.data.features[0].properties.planning_app_proposal + `</a></li></ul>
+            <ul class='lbh-list lbh-list'><li>Planning Application Reference Number: ` + res.data.features[0].properties.planning_app_ref_number +  `<br> Date it was received: ` + res.data.features[0].properties.planning_app_received_date + `<br> Proposal: `+ res.data.features[0].properties.planning_app_proposal + `</a></li></ul>
           </div>
         </div>`;
 
