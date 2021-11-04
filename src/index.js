@@ -142,7 +142,7 @@ function loadPlanningConstraints(selectedUPRN){
   //call to the planning constraints layer where we have all the planning information for each UPRN
   axios.get(`${process.env.GEOSERVER_URL}?service=WFS&version=1.0.0&request=GetFeature&outputFormat=json&typeName=planning_constraints_by_uprn&cql_filter=uprn='${selectedUPRN}'`)
     .then((res) => {
-      //console.log(res.data);
+      console.log(res.data);
       //Variables
       const iswithinCA = res.data.features[0].properties.within_conservation_area;
       const iswithinLocallyListedBuilding = res.data.features[0].properties.within_locally_building;
@@ -153,8 +153,6 @@ function loadPlanningConstraints(selectedUPRN){
       const ward =res.data.features[0].properties.ward;
 
       let textSection = "";
-
-
 
       if (iswithinCA === 'yes'){ 
         textSection += 
@@ -234,19 +232,34 @@ function loadPlanningConstraints(selectedUPRN){
       }
 
       if (iswithinLivePlanningApp === 'yes'){
-        textSection += 
-        `<div class='govuk-accordion__section'>
-          <div class='govuk-accordion__section-header'>
-            <h5 class='govuk-accordion__section-heading'>
-            <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
-            Active Planning Application
-            </span></h5>
-          </div>
-          <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-            <ul class='lbh-list lbh-list'><li>Planning Application Reference Number: ` + res.data.features[0].properties.planning_app_ref_number +  `<br> Date it was received: ` + res.data.features[0].properties.planning_app_received_date + `<br> Proposal: `+ res.data.features[0].properties.planning_app_proposal + `</a></li></ul>
-          </div>
-        </div>`;
+        if (res.data.features[0].properties.planning_app_proposal){
+          textSection += 
+          `<div class='govuk-accordion__section'>
+            <div class='govuk-accordion__section-header'>
+              <h5 class='govuk-accordion__section-heading'>
+              <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
+              Active Planning Application
+              </span></h5>
+            </div>
+            <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
+              <ul class='lbh-list lbh-list'><li>Planning Application Reference Number: ` + res.data.features[0].properties.planning_app_ref_number +  `<br> Date it was received: ` + res.data.features[0].properties.planning_app_received_date + `<br> Proposal: `+ res.data.features[0].properties.planning_app_proposal + `</a></li></ul>
+            </div>
+          </div>`;
 
+        }else{
+          textSection += 
+          `<div class='govuk-accordion__section'>
+            <div class='govuk-accordion__section-header'>
+              <h5 class='govuk-accordion__section-heading'>
+              <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
+              Active Planning Application
+              </span></h5>
+            </div>
+            <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
+              <ul class='lbh-list lbh-list'><li>Planning Application Reference Number: ` + res.data.features[0].properties.planning_app_ref_number +  `<br> Date it was received: ` + res.data.features[0].properties.planning_app_received_date + `</a></li></ul>
+            </div>
+          </div>`;        }
+         
       }
     
       //Split A4D names as list items
