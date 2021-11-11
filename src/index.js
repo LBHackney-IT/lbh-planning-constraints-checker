@@ -232,7 +232,6 @@ function loadPlanningConstraints(selectedUPRN){
       }
 
       if (iswithinLivePlanningApp === 'yes'){
-        if (res.data.features[0].properties.planning_app_proposal){
           textSection += 
           `<div class='govuk-accordion__section'>
             <div class='govuk-accordion__section-header'>
@@ -242,24 +241,9 @@ function loadPlanningConstraints(selectedUPRN){
               </span></h5>
             </div>
             <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-              <ul class='lbh-list lbh-list'><li>Planning Application Reference Number: ` + res.data.features[0].properties.planning_app_ref_number +  `<br> Date it was received: ` + res.data.features[0].properties.planning_app_received_date + `<br> Proposal: `+ res.data.features[0].properties.planning_app_proposal + `</a></li></ul>
+              <ul class='lbh-list lbh-list'><li>Planning Application Reference Number: ` + res.data.features[0].properties.planning_app_ref_number +  `<br> Planning Application Type: ` + res.data.features[0].properties.planning_app_type +  `<br> Date it was received: ` + res.data.features[0].properties.planning_app_received_date + `<br>  `+ res.data.features[0].properties.planning_app_register_link + `</a></li></ul>
             </div>
-          </div>`;
-
-        }else{
-          textSection += 
-          `<div class='govuk-accordion__section'>
-            <div class='govuk-accordion__section-header'>
-              <h5 class='govuk-accordion__section-heading'>
-              <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
-              Active Planning Application
-              </span></h5>
-            </div>
-            <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-              <ul class='lbh-list lbh-list'><li>Planning Application Reference Number: ` + res.data.features[0].properties.planning_app_ref_number +  `<br> Date it was received: ` + res.data.features[0].properties.planning_app_received_date + `</a></li></ul>
-            </div>
-          </div>`;        }
-         
+          </div>`;  
       }
     
       //Split A4D names as list items
