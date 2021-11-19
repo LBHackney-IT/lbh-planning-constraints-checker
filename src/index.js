@@ -237,7 +237,7 @@ function loadPlanningConstraints(selectedUPRN){
             <div class='govuk-accordion__section-header'>
               <h5 class='govuk-accordion__section-heading'>
               <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
-              Active Planning Application
+              Active Planning Applications
               </span></h5>
             </div>
             <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
