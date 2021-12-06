@@ -41,8 +41,7 @@ function GetAddressesViaProxy() {
   //Get the postcode value
   let postcode = document.getElementById("postcode").value;
   let results = null;
-  let full_address = null;
-  let UPRN = null;
+  
 
   document.getElementById("results").innerHTML = "";
 
@@ -79,9 +78,9 @@ function GetAddressesViaProxy() {
 
         document.getElementById("selectedAddress").innerHTML = "<option disabled selected value> Select your address from the list </option>";
         for (let index = 0; index < results.length; ++index) {
-          full_address = results[index].singleLineAddress;
-          UPRN = results[index].UPRN;
-          document.getElementById("selectedAddress").innerHTML += "<option value='" + UPRN + "'>" + full_address + "</option>";
+          // full_address = results[index].singleLineAddress;
+          // UPRN = results[index].UPRN;
+          document.getElementById("selectedAddress").innerHTML += "<option value='" + results[index].UPRN + "//" + results[index].singleLineAddress + "//" + results[index].usageDescription + "//" + results[index].ward + "'>" + results[index].singleLineAddress + "</option>";
         }
 
         //load more pages of results if needed
@@ -97,9 +96,11 @@ function GetAddressesViaProxy() {
         //capture the change event - when an address is selected - we load the list of results (all the planning constrainst affecting the selected address) using the UPRN selected. 
         document.getElementById("addresses").addEventListener('change', (event) => {
           //console.log('one event');
-          //get the selected UPRN from the list of addresses
-          let selectedUPRN = document.querySelector('#selectedAddress').value;
+          //get the selected UPRN and address details from the list of addresses
+          let selectedAddressDetails = document.querySelector('#selectedAddress').value.split('//');
+          let selectedUPRN = selectedAddressDetails[0];
           //console.log('uprn = ' + selectedUPRN);
+          showAddressDetails(selectedAddressDetails);
           loadPlanningConstraints(selectedUPRN);
         });  
       }
@@ -128,16 +129,39 @@ function loadAddressAPIPageViaProxy(postcode, pg) {
       full_address = results[index].singleLineAddress;
       UPRN = results[index].UPRN;
       //console.log(coordinatesEN);
-      document.getElementById("selectedAddress").innerHTML += "<option value='" + UPRN + "'>" + full_address + "</option>";
+      document.getElementById("selectedAddress").innerHTML += "<option value='" + results[index].uprn + "/" + results[index].singleLineAddress + "/" + results[index].usageDescription + "/" + results[index].ward + "'>" + results[index].singleLineAddress + "</option>";
     }
   })
 };
+
+function showAddressDetails(selectedAddressDetails){
+  document.getElementById('address-details').innerHTML = "<h3>Selected property: </h3>";
+  document.getElementById('address-details').innerHTML += 
+      `<dl class="govuk-summary-list lbh-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Address</dt>
+        <dd class="govuk-summary-list__value">${selectedAddressDetails[1]}</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Property usage</dt>
+        <dd class="govuk-summary-list__value">${selectedAddressDetails[2]}</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Ward</dt>
+        <dd class="govuk-summary-list__value">${selectedAddressDetails[3]}</dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">Unique Property <br>Reference Number</dt>
+        <dd class="govuk-summary-list__value">${selectedAddressDetails[0]}</dd>
+      </div>
+    </dl>`
+}
 
 function loadPlanningConstraints(selectedUPRN){
   //message about loading
   document.getElementById('results').innerHTML = "<p>Retrieving planning information...</p>"; 
   document.getElementById("map-link").innerHTML = "";
-  document.getElementById("map-iframe").style.display= 'none';
+  document.getElementById("map-iframe").style.display = 'none';
   //console.log(selectedUPRN);
   //call to the planning constraints layer where we have all the planning information for each UPRN
   axios.get(`${process.env.GEOSERVER_URL}?service=WFS&version=1.0.0&request=GetFeature&outputFormat=json&typeName=planning_constraints_by_uprn&cql_filter=uprn='${selectedUPRN}'`)
@@ -160,11 +184,11 @@ function loadPlanningConstraints(selectedUPRN){
           <div class='govuk-accordion__section-header'>
             <h5 class='govuk-accordion__section-heading'>
             <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
-            Conservation Areas 
+            Conservation Area 
             </span></h5>
           </div>
           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-            <ul class='lbh-list lbh-list'><li>Name: ` + res.data.features[0].properties.ca_name + `</li></ul>
+          <p>This property is in ${res.data.features[0].properties.ca_name} conservation area.</p>
           </div>
         </div>`;
       }
@@ -178,7 +202,8 @@ function loadPlanningConstraints(selectedUPRN){
             </span></h5>
           </div>
           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-            <ul class='lbh-list lbh-list'><li>List entry number: ` + res.data.features[0].properties.statutory_building_list_entry +  `<br> Date first listed: ` + res.data.features[0].properties.statutory_building_listed_date + `<br> Grade: `+ res.data.features[0].properties.statutory_building_grade + `<br> For more information, visit the ` + `<a href='`+ res.data.features[0].properties.statutory_building_hyperlink+`' target='_black'>Historic England website.</a></li></ul>
+          <p>This property is in a statutory listed building:</p> 
+          <ul class='lbh-list lbh-list'><li>List entry number: ${res.data.features[0].properties.statutory_building_list_entry} <br> Date first listed: ${res.data.features[0].properties.statutory_building_listed_date} <br> Grade: ${res.data.features[0].properties.statutory_building_grade} <br> For more information, visit the <a href='${res.data.features[0].properties.statutory_building_hyperlink}' target='_black'>Historic England website.</a></li></ul>
           </div>
         </div>`;
 
@@ -194,7 +219,8 @@ function loadPlanningConstraints(selectedUPRN){
             </span></h5>
           </div>
           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-            <ul class='lbh-list lbh-list'><li>List entry number: ` + res.data.features[0].properties.locally_building_list_entry +  `<br> Date first listed: ` + res.data.features[0].properties.locally_building_listed_date + `<br> Grade: `+ res.data.features[0].properties.locally_building_grade + `<br> For more information, visit the ` + `<a href='`+ res.data.features[0].properties.locally_building_hyperlink+`' target='_black'>Historic England website.</a></li></ul>
+          <p>This property is in a loally listed building: </p>  
+          <ul class='lbh-list lbh-list'><li>List entry number: ${res.data.features[0].properties.locally_building_list_entry} <br> Date first listed: ${res.data.features[0].properties.locally_building_listed_date} <br> Grade: ${res.data.features[0].properties.locally_building_grade } <br> For more information, visit the <a href='${res.data.features[0].properties.locally_building_hyperlink}' target='_black'>Historic England website.</a></li></ul>
           </div>
         </div>`;
 
@@ -211,7 +237,8 @@ function loadPlanningConstraints(selectedUPRN){
           </span></h5>
         </div>
         <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-          <ul class='lbh-list lbh-list'><li>TPO number: ` + res.data.features[0].properties.tpo_area_number +  `<br> Specie: ` + res.data.features[0].properties.tpo_area_specie +  `</a></li></ul>
+        <p>There is at least one protected tree within the property boundaries:</p> 
+          <ul class='lbh-list lbh-list'><li>TPO number: ${res.data.features[0].properties.tpo_area_number} <br> Specie: ${res.data.features[0].properties.tpo_area_specie} </a></li></ul>
           </div>
       </div>`
       }
@@ -226,7 +253,8 @@ function loadPlanningConstraints(selectedUPRN){
           </span></h5>
         </div>
         <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-          <ul class='lbh-list lbh-list'><li>TPO number: ` + res.data.features[0].properties.tpo_point_number +  `<br> Specie: ` + res.data.features[0].properties.tpo_point_specie +  `</a></li></ul>
+        <p>There is at least one protected tree within the property boundaries:</p>
+          <ul class='lbh-list lbh-list'><li>TPO number: ${res.data.features[0].properties.tpo_point_number} <br> Specie: ${res.data.features[0].properties.tpo_point_specie} </a></li></ul>
         </div>
       </div>`
       }
@@ -241,7 +269,8 @@ function loadPlanningConstraints(selectedUPRN){
               </span></h5>
             </div>
             <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-              <ul class='lbh-list lbh-list'><li>Planning Application Reference Number: ` + res.data.features[0].properties.planning_app_ref_number +  `<br> Planning Application Type: ` + res.data.features[0].properties.planning_app_type +  `<br> Date it was received: ` + res.data.features[0].properties.planning_app_received_date + `<br>  `+ res.data.features[0].properties.planning_app_register_link + `</a></li></ul>
+            <p>There is at least one ongoing planning application for this property:</p>
+              <ul class='lbh-list lbh-list'><li>Planning Application Reference Number: ${res.data.features[0].properties.planning_app_ref_number} <br> Planning Application Type: ${res.data.features[0].properties.planning_app_type} <br> Date it was received: ${res.data.features[0].properties.planning_app_received_date} <br>  ${res.data.features[0].properties.planning_app_register_link}</a></li></ul>
             </div>
           </div>`;  
       }
@@ -263,6 +292,7 @@ function loadPlanningConstraints(selectedUPRN){
             </span></h5>
           </div>
           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
+            <p>This property is in the following <a href="https://hackney.gov.uk/article-4-directions">Article 4 Directions</a> areas:</p>
             <ul class='lbh-list lbh-list--bullet'>`   
             + a4d_list_items +
             `</ul>
@@ -270,8 +300,8 @@ function loadPlanningConstraints(selectedUPRN){
         </div>`;
 
       //List the results using an accordion. 
-      document.getElementById('results').innerHTML = "<h3>The selected address is in " + ward + " ward.</h3>";
-      document.getElementById('results').innerHTML += "<h3>The following planning elements apply to this property: </h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
+      //document.getElementById('results').innerHTML = "<h3>The selected address is in " + ward + " ward.</h3>";
+      document.getElementById('results').innerHTML = "<h3>Local planning information relevant to this property: </h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
             
       //Activate the JS of the component
       const accordion = document.querySelector('[data-module="govuk-accordion"]');
@@ -281,7 +311,7 @@ function loadPlanningConstraints(selectedUPRN){
       
       //Add button to the planning constraints map  
       //live link    
-      document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning information on a map</button>";
+      document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View this plannning information on a map</button>";
       //local test link
       //document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='http://localhost:9000/planning-constraints/index.html?uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning information on a map</button>";
       //load the map when clicking on the button
