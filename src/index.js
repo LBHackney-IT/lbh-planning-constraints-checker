@@ -140,7 +140,7 @@ function showAddressDetails(selectedAddressDetails){
       `<dl class="govuk-summary-list lbh-summary-list">
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Address</dt>
-        <dd class="govuk-summary-list__value">${selectedAddressDetails[1]}</dd>
+        <dd class="govuk-summary-list__value">${toTitleCase(selectedAddressDetails[1])}</dd>
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">Property usage</dt>
@@ -188,7 +188,7 @@ function loadPlanningConstraints(selectedUPRN){
             </span></h5>
           </div>
           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-          <p>This property is in ${res.data.features[0].properties.ca_name} conservation area.</p>
+          <p>This property is inside (or partly inside) ${res.data.features[0].properties.ca_name} conservation area.</p>
           </div>
         </div>`;
       }
@@ -329,5 +329,16 @@ function loadPlanningConstraints(selectedUPRN){
       //Catch geoserver error
       document.getElementById("error_message").innerHTML = 'Sorry, there was a problem retrieving the results for this address.';
     })      
+}
+
+function toTitleCase(str){
+  let wordArr = str.split(" ");
+  let i = 0;
+  let titeCaseStr = '';
+  for (i = 0 ; i < wordArr.length-2 ; i++){
+    titeCaseStr += wordArr[i][0].toUpperCase() + wordArr[i].substring(1).toLowerCase() + " ";
+  }
+  titeCaseStr += wordArr[wordArr.length-2] + " " + wordArr[wordArr.length-1]
+  return titeCaseStr;
 }
 
