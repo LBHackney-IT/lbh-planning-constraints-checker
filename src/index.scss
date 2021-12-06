@@ -25,6 +25,10 @@ $lbh-global-styles: true;
     max-width: 380px;
 }
 
+.address-details-div {
+    margin-top: 60px;
+}
+
 .results-div {
     margin-top: 60px;
 }
@@ -32,4 +36,12 @@ $lbh-global-styles: true;
 .lbh-container {
     margin-right: auto;
     margin-left: 5px;
+}
+
+.js-enabled {
+	
+	// This fix prevents a horizontal scrollbar if the accordion is in an iframe
+    .govuk-accordion__open-all {
+		padding-right: 1px;
+	  }
 }
