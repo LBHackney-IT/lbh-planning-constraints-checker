@@ -219,7 +219,7 @@ function loadPlanningConstraints(selectedUPRN){
             </span></h5>
           </div>
           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-          <p>This property is in a loally listed building: </p>  
+          <p>This property is in a locally listed building: </p>  
           <ul class='lbh-list lbh-list'><li>List entry number: ${res.data.features[0].properties.locally_building_list_entry} <br> Date first listed: ${res.data.features[0].properties.locally_building_listed_date} <br> Grade: ${res.data.features[0].properties.locally_building_grade } <br> For more information, visit the <a href='${res.data.features[0].properties.locally_building_hyperlink}' target='_black'>Historic England website.</a></li></ul>
           </div>
         </div>`;
@@ -292,7 +292,7 @@ function loadPlanningConstraints(selectedUPRN){
             </span></h5>
           </div>
           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-            <p>This property is in the following <a href="https://hackney.gov.uk/article-4-directions">Article 4 Directions</a> areas:</p>
+            <p>This property falls in the following <a href="https://hackney.gov.uk/article-4-directions">Article 4 Directions</a> areas:</p>
             <ul class='lbh-list lbh-list--bullet'>`   
             + a4d_list_items +
             `</ul>
