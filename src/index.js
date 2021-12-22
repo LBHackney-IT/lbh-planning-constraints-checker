@@ -25,6 +25,7 @@ postcode.addEventListener("search", (e) => {
   document.getElementById("error_message").innerHTML = "";
   document.getElementById("addresses").innerHTML = '';
   document.getElementById("results").innerHTML = "";
+  document.getElementById("address-details").innerHTML = "";
   document.getElementById("map-link").innerHTML = "";
   document.getElementById("map-iframe").style.display= 'none';
 });
@@ -36,6 +37,7 @@ function GetAddressesViaProxy() {
   document.getElementById("addresses").innerHTML = 'Loading addresses...';
   document.getElementById("map-link").innerHTML = "";
   document.getElementById("results").innerHTML = "";
+  document.getElementById("address-details").innerHTML = "";
   document.getElementById("map-iframe").style.display= 'none';
 
   //Get the postcode value
@@ -44,6 +46,7 @@ function GetAddressesViaProxy() {
   
 
   document.getElementById("results").innerHTML = "";
+  document.getElementById("address-details").innerHTML = "";
 
   //First call to get the list of addresses from a postcode
   fetch(`${process.env.ADDRESSES_API_PROXY_PROD}?format=detailed&query=${postcode}`, {
@@ -65,6 +68,7 @@ function GetAddressesViaProxy() {
       if (results.length === 0) {
         document.getElementById("error_message").innerHTML = "No Hackney address found. Please amend your search.";
         document.getElementById("addresses").innerHTML = '';
+        document.getElementById("address-details").innerHTML = "";
       }
       else {
 
@@ -166,7 +170,7 @@ function loadPlanningConstraints(selectedUPRN){
   //call to the planning constraints layer where we have all the planning information for each UPRN
   axios.get(`${process.env.GEOSERVER_URL}?service=WFS&version=1.0.0&request=GetFeature&outputFormat=json&typeName=planning_constraints_by_uprn&cql_filter=uprn='${selectedUPRN}'`)
     .then((res) => {
-      console.log(res.data);
+      //console.log(res.data);
       //Variables
       const iswithinCA = res.data.features[0].properties.within_conservation_area;
       const iswithinLocallyListedBuilding = res.data.features[0].properties.within_locally_building;
@@ -203,7 +207,7 @@ function loadPlanningConstraints(selectedUPRN){
           </div>
           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
           <p>This property is in a statutory listed building:</p> 
-          <ul class='lbh-list lbh-list'><li>List entry number: ${res.data.features[0].properties.statutory_building_list_entry} <br> Date first listed: ${res.data.features[0].properties.statutory_building_listed_date} <br> Grade: ${res.data.features[0].properties.statutory_building_grade} <br> For more information, visit the <a href='${res.data.features[0].properties.statutory_building_hyperlink}' target='_black'>Historic England website.</a></li></ul>
+          <ul class='lbh-list lbh-list'><li>List entry number: ${res.data.features[0].properties.statutory_building_list_entry} <br> Date first listed: ${res.data.features[0].properties.statutory_building_listed_date} <br> Grade: ${res.data.features[0].properties.statutory_building_grade} <br> For more information, visit the <a href='${res.data.features[0].properties.statutory_building_hyperlink}' target='_blank'>Historic England website.</a></li></ul>
           </div>
         </div>`;
 
@@ -220,7 +224,7 @@ function loadPlanningConstraints(selectedUPRN){
           </div>
           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
           <p>This property is in a locally listed building: </p>  
-          <ul class='lbh-list lbh-list'><li>List entry number: ${res.data.features[0].properties.locally_building_list_entry} <br> Date first listed: ${res.data.features[0].properties.locally_building_listed_date} <br> Grade: ${res.data.features[0].properties.locally_building_grade } <br> For more information, visit the <a href='${res.data.features[0].properties.locally_building_hyperlink}' target='_black'>Historic England website.</a></li></ul>
+          <ul class='lbh-list lbh-list'><li>List entry number: ${res.data.features[0].properties.locally_building_list_entry} <br> Date first listed: ${res.data.features[0].properties.locally_building_listed_date} <br> Grade: ${res.data.features[0].properties.locally_building_grade } <br> For more information, visit the <a href='${res.data.features[0].properties.locally_building_hyperlink}' target='_blank'>Historic England website.</a></li></ul>
           </div>
         </div>`;
 
@@ -292,7 +296,7 @@ function loadPlanningConstraints(selectedUPRN){
             </span></h5>
           </div>
           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-            <p>This property falls in the following <a href="https://hackney.gov.uk/article-4-directions">Article 4 Directions</a> areas:</p>
+            <p>This property falls in the following <a href="https://hackney.gov.uk/article-4-directions" target='_blank'>Article 4 Directions</a> areas:</p>
             <ul class='lbh-list lbh-list--bullet'>`   
             + a4d_list_items +
             `</ul>
@@ -319,17 +323,22 @@ function loadPlanningConstraints(selectedUPRN){
         //local test link
         //document.getElementById("map-iframe").src='http://localhost:9000/planning-constraints/embed?uprn='+ selectedUPRN;
         //live link
-        // document.getElementById("map-iframe").style.display= 'none';
+        //document.getElementById('loading-map').innerHTML = "<p>Loading map...</p>"; 
         document.getElementById("map-iframe").src='https://map2.hackney.gov.uk/maps/planning-constraints/embed?uprn='+ selectedUPRN;
         document.getElementById("map-iframe").style.display= 'block';
+        //Add the Loading map message while the map is loading
+        document.querySelector('iframe').onload = function(){
+          document.getElementById('loading-map').innerHTML = "<p>Loading map...</p>"; 
+        };
+        //TODO Remove the message after the map is loaded
       }
-      
     })
     .catch((error) => {
       //Catch geoserver error
       document.getElementById("error_message").innerHTML = 'Sorry, there was a problem retrieving the results for this address.';
-    })      
+    })  
 }
+
 
 function toTitleCase(str){
   let wordArr = str.split(" ");
