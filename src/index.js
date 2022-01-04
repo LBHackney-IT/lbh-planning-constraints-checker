@@ -326,11 +326,6 @@ function loadPlanningConstraints(selectedUPRN){
         //document.getElementById('loading-map').innerHTML = "<p>Loading map...</p>"; 
         document.getElementById("map-iframe").src='https://map2.hackney.gov.uk/maps/planning-constraints/embed?uprn='+ selectedUPRN;
         document.getElementById("map-iframe").style.display= 'block';
-        //Add the Loading map message while the map is loading
-        document.querySelector('iframe').onload = function(){
-          document.getElementById('loading-map').innerHTML = "<p>Loading map...</p>"; 
-        };
-        //TODO Remove the message after the map is loaded
       }
     })
     .catch((error) => {
