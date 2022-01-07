@@ -316,7 +316,8 @@ function loadPlanningConstraints(selectedUPRN){
 
       //List the results using an accordion. 
       document.getElementById('results').innerHTML = "<h3>Planning information relevant to this location: </h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
-            
+      //remove the button above
+      document.getElementById("show-results-button").innerHTML = "";      
       //Activate the JS of the component
       const accordion = document.querySelector('[data-module="govuk-accordion"]');
       if (accordion) {
@@ -333,9 +334,9 @@ function loadPlanningConstraints(selectedUPRN){
         //local test link
         //document.getElementById("map-iframe").src='http://localhost:9000/planning-constraints/embed?uprn='+ selectedUPRN;
         //live link
-        //document.getElementById('loading-map').innerHTML = "<p>Loading map...</p>"; 
         document.getElementById("map-iframe").src='https://map2.hackney.gov.uk/maps/planning-constraints/embed?uprn='+ selectedUPRN;
         document.getElementById("map-iframe").style.display= 'block';
+        document.getElementById("map-link").innerHTML = "";
       }
     })
     .catch((error) => {
