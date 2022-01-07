@@ -32,7 +32,7 @@
       <!-- <a href='./test.html'>Go to test proxy</a> -->
       <div class="govuk-form-group lbh-form-group">
         <label class="govuk-label  lbh-label" for="postcode">
-          To start, search for an address by typing a postcode or an address
+          To start your planning information check, search for a location by typing a postcode or an address
         </label>
         <span id="error_message" class="govuk-error-message  lbh-error-message">
           <span class="govuk-visually-hidden">Error:</span>
@@ -45,7 +45,7 @@
         />
 
         <button id="search" class="govuk-button  lbh-button" data-module="govuk-button">
-          Find addresses
+          Find locations
         </button>
       </div>
 
@@ -53,9 +53,10 @@
 
       <!-- <div id="addresses"></div>-->
       <div id="address-details" class="address-details-div"></div>
+      <div id="show-results-button" class="button-div"></div>
       <div id="results" class="results-div"></div>
-      <div id="map-link"></div>
-      <div id="div-map-iframe"><iframe id="map-iframe" alt="Map showing planning information at the selected address" src="" width="100%" height="650" display="none"></iframe></div>
+      <div id="map-link" class="button-div"></div>
+      <div id="div-map-iframe"><iframe id="map-iframe" alt="Map showing planning information at the selected location" src="" width="100%" height="650" display="none"></iframe></div>
     </div>
   </main>
   <!-- Put your path to the LBHFrontend JS File in the src attribute here -->

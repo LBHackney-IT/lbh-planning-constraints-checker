@@ -24,20 +24,20 @@ document.getElementById("search").addEventListener("click", GetAddressesViaProxy
 postcode.addEventListener("search", (e) => {
   document.getElementById("error_message").innerHTML = "";
   document.getElementById("addresses").innerHTML = '';
-  document.getElementById("results").innerHTML = "";
   document.getElementById("address-details").innerHTML = "";
+  document.getElementById("show-results-button").innerHTML = "";
+  document.getElementById("results").innerHTML = "";
   document.getElementById("map-link").innerHTML = "";
   document.getElementById("map-iframe").style.display= 'none';
 });
 
 function GetAddressesViaProxy() {
-
-
   document.getElementById("error_message").innerHTML = "";
   document.getElementById("addresses").innerHTML = 'Loading addresses...';
-  document.getElementById("map-link").innerHTML = "";
-  document.getElementById("results").innerHTML = "";
   document.getElementById("address-details").innerHTML = "";
+  document.getElementById("show-results-button").innerHTML = "";
+  document.getElementById("results").innerHTML = "";
+  document.getElementById("map-link").innerHTML = "";
   document.getElementById("map-iframe").style.display= 'none';
 
   //Get the postcode value
@@ -45,8 +45,8 @@ function GetAddressesViaProxy() {
   let results = null;
   
 
-  document.getElementById("results").innerHTML = "";
-  document.getElementById("address-details").innerHTML = "";
+  // document.getElementById("results").innerHTML = "";
+  // document.getElementById("address-details").innerHTML = "";
 
   //First call to get the list of addresses from a postcode
   fetch(`${process.env.ADDRESSES_API_PROXY_PROD}?format=detailed&query=${postcode}`, {
@@ -66,7 +66,7 @@ function GetAddressesViaProxy() {
       let pageCount = data.data.data.pageCount;
       //If there are no results, the postcode is not right. 
       if (results.length === 0) {
-        document.getElementById("error_message").innerHTML = "No Hackney address found. Please amend your search.";
+        document.getElementById("error_message").innerHTML = "No Hackney location found. Please amend your search.";
         document.getElementById("addresses").innerHTML = '';
         document.getElementById("address-details").innerHTML = "";
       }
@@ -80,7 +80,7 @@ function GetAddressesViaProxy() {
         document.getElementById("addresses").innerHTML = "<div class='govuk-form-group lbh-form-group'>"
           + "<select class='govuk-select govuk-!-width-full lbh-select' id='selectedAddress' name='selectedAddress'>";
 
-        document.getElementById("selectedAddress").innerHTML = "<option disabled selected value> Select your address from the list </option>";
+        document.getElementById("selectedAddress").innerHTML = "<option disabled selected value> Select a location from the list </option>";
         for (let index = 0; index < results.length; ++index) {
           // full_address = results[index].singleLineAddress;
           // UPRN = results[index].UPRN;
@@ -105,12 +105,12 @@ function GetAddressesViaProxy() {
           let selectedUPRN = selectedAddressDetails[0];
           //console.log('uprn = ' + selectedUPRN);
           showAddressDetails(selectedAddressDetails);
-          loadPlanningConstraints(selectedUPRN);
+          showPlanningInfoButton(selectedUPRN);
         });  
       }
     }
   }).catch(error => {
-    document.getElementById("error_message").innerHTML = "Sorry, an error occured while retrieving addresses";
+    document.getElementById("error_message").innerHTML = "Sorry, an error occured while retrieving locations";
     document.getElementById("addresses").innerHTML = '';
   })
 };
@@ -139,7 +139,7 @@ function loadAddressAPIPageViaProxy(postcode, pg) {
 };
 
 function showAddressDetails(selectedAddressDetails){
-  document.getElementById('address-details').innerHTML = "<h3>Selected property: </h3>";
+  document.getElementById('address-details').innerHTML = "<h3>Selected location: </h3>";
   document.getElementById('address-details').innerHTML += 
       `<dl class="govuk-summary-list lbh-summary-list">
       <div class="govuk-summary-list__row">
@@ -147,7 +147,7 @@ function showAddressDetails(selectedAddressDetails){
         <dd class="govuk-summary-list__value">${toTitleCase(selectedAddressDetails[1])}</dd>
       </div>
       <div class="govuk-summary-list__row">
-        <dt class="govuk-summary-list__key">Property usage</dt>
+        <dt class="govuk-summary-list__key">Usage</dt>
         <dd class="govuk-summary-list__value">${selectedAddressDetails[2]}</dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -159,6 +159,17 @@ function showAddressDetails(selectedAddressDetails){
         <dd class="govuk-summary-list__value">${selectedAddressDetails[0]}</dd>
       </div>
     </dl>`
+}
+
+function showPlanningInfoButton(selectedUPRN){
+  //Add button to load planning info as accordion  
+  document.getElementById("show-results-button").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button'><span><i class='far fa-list'></i></span></i> &nbsp; View plannning information on this location</button>";
+  //local test link
+  //document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='http://localhost:9000/planning-constraints/index.html?uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning information on a map</button>";
+  //load the map when clicking on the button
+  document.getElementById("show-results-button").onclick = function loadInfo(){
+    loadPlanningConstraints(selectedUPRN);
+  };
 }
 
 function loadPlanningConstraints(selectedUPRN){
@@ -192,7 +203,7 @@ function loadPlanningConstraints(selectedUPRN){
             </span></h5>
           </div>
           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-          <p>This property is inside (or partly inside) ${res.data.features[0].properties.ca_name} conservation area.</p>
+          <p>This location is inside (or partly inside) ${res.data.features[0].properties.ca_name} conservation area.</p>
           </div>
         </div>`;
       }
@@ -206,7 +217,7 @@ function loadPlanningConstraints(selectedUPRN){
             </span></h5>
           </div>
           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-          <p>This property is in a statutory listed building:</p> 
+          <p>This location is in a statutory listed building:</p> 
           <ul class='lbh-list lbh-list'><li>List entry number: ${res.data.features[0].properties.statutory_building_list_entry} <br> Date first listed: ${res.data.features[0].properties.statutory_building_listed_date} <br> Grade: ${res.data.features[0].properties.statutory_building_grade} <br> For more information, visit the <a href='${res.data.features[0].properties.statutory_building_hyperlink}' target='_blank'>Historic England website.</a></li></ul>
           </div>
         </div>`;
@@ -223,7 +234,7 @@ function loadPlanningConstraints(selectedUPRN){
             </span></h5>
           </div>
           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-          <p>This property is in a locally listed building: </p>  
+          <p>This location is in a locally listed building: </p>  
           <ul class='lbh-list lbh-list'><li>List entry number: ${res.data.features[0].properties.locally_building_list_entry} <br> Date first listed: ${res.data.features[0].properties.locally_building_listed_date} <br> Grade: ${res.data.features[0].properties.locally_building_grade } <br> For more information, visit the <a href='${res.data.features[0].properties.locally_building_hyperlink}' target='_blank'>Historic England website.</a></li></ul>
           </div>
         </div>`;
@@ -241,7 +252,7 @@ function loadPlanningConstraints(selectedUPRN){
           </span></h5>
         </div>
         <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-        <p>There is at least one protected tree within the property boundaries:</p> 
+        <p>There is at least one protected tree within the location boundaries:</p> 
           <ul class='lbh-list lbh-list'><li>TPO number: ${res.data.features[0].properties.tpo_area_number} <br> Specie: ${res.data.features[0].properties.tpo_area_specie} </a></li></ul>
           </div>
       </div>`
@@ -257,7 +268,7 @@ function loadPlanningConstraints(selectedUPRN){
           </span></h5>
         </div>
         <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-        <p>There is at least one protected tree within the property boundaries:</p>
+        <p>There is at least one protected tree within the location boundaries:</p>
           <ul class='lbh-list lbh-list'><li>TPO number: ${res.data.features[0].properties.tpo_point_number} <br> Specie: ${res.data.features[0].properties.tpo_point_specie} </a></li></ul>
         </div>
       </div>`
@@ -273,7 +284,7 @@ function loadPlanningConstraints(selectedUPRN){
               </span></h5>
             </div>
             <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-            <p>There is at least one ongoing planning application for this property:</p>
+            <p>There is at least one ongoing planning application on this location:</p>
               <ul class='lbh-list lbh-list'><li>Planning Application Reference Number: ${res.data.features[0].properties.planning_app_ref_number} <br> Planning Application Type: ${res.data.features[0].properties.planning_app_type} <br> Date it was received: ${res.data.features[0].properties.planning_app_received_date} <br>  ${res.data.features[0].properties.planning_app_register_link}</a></li></ul>
             </div>
           </div>`;  
@@ -296,7 +307,7 @@ function loadPlanningConstraints(selectedUPRN){
             </span></h5>
           </div>
           <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-            <p>This property falls in the following <a href="https://hackney.gov.uk/article-4-directions" target='_blank'>Article 4 Directions</a> areas:</p>
+            <p>This location falls in the following <a href="https://hackney.gov.uk/article-4-directions" target='_blank'>Article 4 Directions</a> areas:</p>
             <ul class='lbh-list lbh-list--bullet'>`   
             + a4d_list_items +
             `</ul>
@@ -304,8 +315,7 @@ function loadPlanningConstraints(selectedUPRN){
         </div>`;
 
       //List the results using an accordion. 
-      //document.getElementById('results').innerHTML = "<h3>The selected address is in " + ward + " ward.</h3>";
-      document.getElementById('results').innerHTML = "<h3>Local planning information relevant to this property: </h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
+      document.getElementById('results').innerHTML = "<h3>Planning information relevant to this location: </h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
             
       //Activate the JS of the component
       const accordion = document.querySelector('[data-module="govuk-accordion"]');
