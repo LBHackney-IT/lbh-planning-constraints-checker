@@ -28,6 +28,7 @@ postcode.addEventListener("search", (e) => {
   document.getElementById("show-results-button").innerHTML = "";
   document.getElementById("results").innerHTML = "";
   document.getElementById("map-link").innerHTML = "";
+  document.getElementById("map-header").innerHTML = "";
   document.getElementById("map-iframe").style.display= 'none';
 });
 
@@ -38,6 +39,7 @@ function GetAddressesViaProxy() {
   document.getElementById("show-results-button").innerHTML = "";
   document.getElementById("results").innerHTML = "";
   document.getElementById("map-link").innerHTML = "";
+  document.getElementById("map-header").innerHTML = "";
   document.getElementById("map-iframe").style.display= 'none';
 
   //Get the postcode value
@@ -331,12 +333,14 @@ function loadPlanningConstraints(selectedUPRN){
       //document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='http://localhost:9000/planning-constraints/index.html?uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning information on a map</button>";
       //load the map when clicking on the button
       document.getElementById("map-link").onclick = function loadMap() {
+        document.getElementById('map-header').innerHTML = "<p>Loading map...</p>"; 
         //local test link
         //document.getElementById("map-iframe").src='http://localhost:9000/planning-constraints/embed?uprn='+ selectedUPRN;
         //live link
         document.getElementById("map-iframe").src='https://map2.hackney.gov.uk/maps/planning-constraints/embed?uprn='+ selectedUPRN;
         document.getElementById("map-iframe").style.display= 'block';
-        setTimeout(() => {document.getElementById("map-link").innerHTML = ""; }, 3000);;
+        setTimeout(() => {document.getElementById("map-header").innerHTML = "<h3>Map view:</h3>";}, 6000);
+        setTimeout(() => {document.getElementById("map-link").innerHTML = ""; }, 6000);
       }
     })
     .catch((error) => {
