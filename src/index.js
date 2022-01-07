@@ -336,7 +336,7 @@ function loadPlanningConstraints(selectedUPRN){
         //live link
         document.getElementById("map-iframe").src='https://map2.hackney.gov.uk/maps/planning-constraints/embed?uprn='+ selectedUPRN;
         document.getElementById("map-iframe").style.display= 'block';
-        document.getElementById("map-link").innerHTML = "";
+        setTimeout(() => {document.getElementById("map-link").innerHTML = ""; }, 3000);;
       }
     })
     .catch((error) => {
