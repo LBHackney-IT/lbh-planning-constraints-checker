@@ -165,9 +165,9 @@ function showAddressDetails(selectedAddressDetails){
 
 function showPlanningInfoButton(selectedUPRN){
   //Add button to load planning info as accordion  
-  document.getElementById("show-results-button").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button'><span><i class='far fa-list'></i></span></i> &nbsp; View plannning information on this location</button>";
+  document.getElementById("show-results-button").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button'><span><i class='far fa-list'></i></span></i> &nbsp; View planning information on this location</button>";
   //local test link
-  //document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='http://localhost:9000/planning-constraints/index.html?uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning information on a map</button>";
+  //document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='http://localhost:9000/planning-constraints/index.html?uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View planning information on a map</button>";
   //load the map when clicking on the button
   document.getElementById("show-results-button").onclick = function loadInfo(){
     loadPlanningConstraints(selectedUPRN);
@@ -328,9 +328,9 @@ function loadPlanningConstraints(selectedUPRN){
       
       //Add button to the planning constraints map  
       //live link    
-      document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View this plannning information on a map</button>";
+      document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View this planning information on a map</button>";
       //local test link
-      //document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='http://localhost:9000/planning-constraints/index.html?uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View plannning information on a map</button>";
+      //document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='http://localhost:9000/planning-constraints/index.html?uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View planning information on a map</button>";
       //load the map when clicking on the button
       document.getElementById("map-link").onclick = function loadMap() {
         document.getElementById('map-header').innerHTML = "<p>Loading map...</p>"; 
