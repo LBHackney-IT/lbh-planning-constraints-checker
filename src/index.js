@@ -8,6 +8,12 @@ const regeneratorRuntime = require("regenerator-runtime");
 const dotenv = require('dotenv').config();
 const axios = require('axios').default;
 
+//activate the start button
+document.getElementById("start-button").onclick = function(){
+  document.getElementById("location-search").hidden = false;
+  document.getElementById("start-button").style.display = "none";
+};
+
 // Create a variable for the postcode. 
 let postcode = document.getElementById('postcode');
 //Enter key listener that calls the GetAddressesviaPoxy function

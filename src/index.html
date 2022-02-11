@@ -30,27 +30,34 @@
     <div class="lbh-container">
       <!-- Main content components go here -->
       <!-- <a href='./test.html'>Go to test proxy</a> -->
-      <div class="govuk-form-group lbh-form-group">
-        <label class="govuk-label  lbh-label" for="postcode">
-          To start your planning information check, search for a location by typing a postcode or an address:
-        </label>
-        <span id="error_message" class="govuk-error-message  lbh-error-message">
-          <span class="govuk-visually-hidden">Error:</span>
-        </span>
-        <br>
-        <input type="Search"
-          class="govuk-input  lbh-input govuk-input--width-10"
-          id="postcode" 
-          placeholder="Hackney address or postcode"
-        />
-
-        <button id="search" class="govuk-button  lbh-button" data-module="govuk-button">
-          Find locations
+      <div id="start-button-div" class="button-div">
+        <button id="start-button" class="govuk-button  lbh-button" data-module="govuk-button">
+          Start
         </button>
       </div>
-
-      <p id="addresses"></p>
-
+      <div id="location-search" hidden="true">
+        <div class="govuk-form-group lbh-form-group">
+          <label class="govuk-label  lbh-label" for="postcode">
+            To start checking planning information, please search for a location by typing a postcode or an address:
+          </label>
+          <span id="error_message" class="govuk-error-message  lbh-error-message">
+            <span class="govuk-visually-hidden">Error:</span>
+          </span>
+          <br>
+          <input type="Search"
+            class="govuk-input  lbh-input govuk-input--width-10"
+            id="postcode" 
+            placeholder="Hackney address or postcode"
+          />
+  
+          <button id="search" class="govuk-button  lbh-button" data-module="govuk-button">
+            Find locations
+          </button>
+        </div>
+  
+        <p id="addresses"></p>
+      </div>
+      
       <!-- <div id="addresses"></div>-->
       <div id="address-details" class="address-details-div"></div>
       <div id="show-results-button" class="button-div"></div>
