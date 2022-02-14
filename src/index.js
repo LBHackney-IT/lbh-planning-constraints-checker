@@ -166,7 +166,8 @@ function showAddressDetails(selectedAddressDetails){
         <dt class="govuk-summary-list__key">Unique Property <br>Reference Number</dt>
         <dd class="govuk-summary-list__value">${selectedAddressDetails[0]}</dd>
       </div>
-    </dl>`
+    </dl>`;
+    document.getElementById('address-details').scrollTop = 0;
 }
 
 function showPlanningInfoButton(selectedUPRN){
@@ -348,6 +349,7 @@ function loadPlanningConstraints(selectedUPRN){
         setTimeout(() => {document.getElementById("map-header").innerHTML = "<h3>Map view:</h3>";}, 4500);
         setTimeout(() => {document.getElementById("map-link").innerHTML = ""; }, 4500);
       }
+      document.getElementById('results').scrollTop = 0;
     })
     .catch((error) => {
       //Catch geoserver error
