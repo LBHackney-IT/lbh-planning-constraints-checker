@@ -167,6 +167,7 @@ function showAddressDetails(selectedAddressDetails){
         <dd class="govuk-summary-list__value">${selectedAddressDetails[0]}</dd>
       </div>
     </dl>`
+  
 }
 
 function showPlanningInfoButton(selectedUPRN){
@@ -178,6 +179,7 @@ function showPlanningInfoButton(selectedUPRN){
   document.getElementById("show-results-button").onclick = function loadInfo(){
     loadPlanningConstraints(selectedUPRN);
   };
+  document.getElementById("show-results-button").scrollIntoView();
 }
 
 function loadPlanningConstraints(selectedUPRN){
@@ -347,7 +349,9 @@ function loadPlanningConstraints(selectedUPRN){
         document.getElementById("map-iframe").style.display= 'block';
         setTimeout(() => {document.getElementById("map-header").innerHTML = "<h3>Map view:</h3>";}, 4500);
         setTimeout(() => {document.getElementById("map-link").innerHTML = ""; }, 4500);
+        document.getElementById("div-map-iframe").scrollIntoView();
       }      
+    document.getElementById("results").scrollIntoView();
     })
     .catch((error) => {
       //Catch geoserver error
