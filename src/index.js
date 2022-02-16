@@ -179,7 +179,8 @@ function showPlanningInfoButton(selectedUPRN){
   document.getElementById("show-results-button").onclick = function loadInfo(){
     loadPlanningConstraints(selectedUPRN);
   };
-  document.getElementById("show-results-button").scrollIntoView();
+  //Scroll down to show the show results button
+  document.getElementById('iframe-checker-app').contentWindow.document.getElementById("show-results-button").scrollIntoView();
 }
 
 function loadPlanningConstraints(selectedUPRN){
@@ -349,9 +350,11 @@ function loadPlanningConstraints(selectedUPRN){
         document.getElementById("map-iframe").style.display= 'block';
         setTimeout(() => {document.getElementById("map-header").innerHTML = "<h3>Map view:</h3>";}, 4500);
         setTimeout(() => {document.getElementById("map-link").innerHTML = ""; }, 4500);
-        document.getElementById("div-map-iframe").scrollIntoView();
+        //Scroll down to show the map
+        document.getElementById('iframe-checker-app').contentWindow.document.getElementById("div-map-iframe").scrollIntoView();
       }      
-    document.getElementById("results").scrollIntoView();
+      //Scroll down to see the results list
+      document.getElementById('iframe-checker-app').contentWindow.document.getElementById("results").scrollIntoView();
     })
     .catch((error) => {
       //Catch geoserver error
