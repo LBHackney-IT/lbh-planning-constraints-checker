@@ -120,6 +120,7 @@ function GetAddressesViaProxy() {
           showPlanningInfoButton(selectedUPRN);
         });  
         document.getElementById("addresses").scrollIntoView();
+        console.log('getElementById("addresses").scrollIntoView()')
       }
     }
   }).catch(error => {
@@ -188,6 +189,7 @@ function showPlanningInfoButton(selectedUPRN){
   // document.getElementById('iframe-checker-app').contentWindow.document.getElementById("show-results-button").scrollIntoView();
   // window.parent.scrollBy(0,200);
   document.getElementById("show-results-button").scrollIntoView();
+  console.log('getElementById("show-results-button").scrollIntoView()')
 }
 
 function loadPlanningConstraints(selectedUPRN){
@@ -360,12 +362,14 @@ function loadPlanningConstraints(selectedUPRN){
         //Scroll down to show the map
         // document.getElementById('iframe-checker-app').contentWindow.document.getElementById("div-map-iframe").scrollIntoView();
         document.getElementById("map-iframe").scrollIntoView();
+        console.log('getElementById("map-iframe").scrollIntoView()')
         //window.parent.scrollBy(0,200);
       }      
       //Scroll down to see the results list
       // document.getElementById('iframe-checker-app').contentWindow.document.getElementById("results").scrollIntoView();
       // window.parent.scrollBy(0,200);
       document.getElementById("map-link").scrollIntoView();
+      console.log('getElementById("map-link").scrollIntoView()')
     })
     .catch((error) => {
       //Catch geoserver error
