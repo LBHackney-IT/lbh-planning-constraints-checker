@@ -12,6 +12,7 @@ const axios = require('axios').default;
 document.getElementById("start-button").onclick = function(){
   document.getElementById("location-search").hidden = false;
   document.getElementById("start-button").style.display = "none";
+  //document.getElementById("search").scrollIntoView();
   // window.parent.scrollBy(0,200);
 };
 
@@ -77,7 +78,7 @@ function GetAddressesViaProxy() {
       if (results.length === 0) {
         document.getElementById("error_message").innerHTML = "No Hackney location found. Please amend your search.";
         document.getElementById("addresses").innerHTML = '';
-        document.getElementById("address-details").innerHTML = "";
+        document.getElementById("address-details").innerHTML = '';
       }
       else {
 
@@ -118,6 +119,7 @@ function GetAddressesViaProxy() {
           showAddressDetails(selectedAddressDetails);
           showPlanningInfoButton(selectedUPRN);
         });  
+        document.getElementById("addresses").scrollIntoView();
       }
     }
   }).catch(error => {
