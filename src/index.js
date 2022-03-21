@@ -10,9 +10,11 @@ const axios = require('axios').default;
 
 //activate the start button
 document.getElementById("start-button").onclick = function(){
+  console.log('first click');
   document.getElementById("location-search").hidden = false;
   document.getElementById("start-button").style.display = "none";
-  //document.getElementById("search").scrollIntoView();
+  document.getElementById("search").scrollIntoView();
+  console.log('document.getElementById("search").scrollIntoView();');
   // window.parent.scrollBy(0,200);
 };
 
@@ -172,7 +174,7 @@ function showAddressDetails(selectedAddressDetails){
         <dd class="govuk-summary-list__value">${selectedAddressDetails[0]}</dd>
       </div>
     </dl>`;
-    showPlanningInfoButton(selectedUPRN);
+    showPlanningInfoButton(selectedAddressDetails[0]);
     // window.parent.scrollBy(0,200);
 }
 
