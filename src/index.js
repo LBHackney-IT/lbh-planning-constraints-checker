@@ -13,7 +13,6 @@ document.getElementById("start-button").onclick = function(){
   document.getElementById("location-search").hidden = false;
   document.getElementById("start-button").style.display = "none";
   window.parent.scrollBy(0,200);
-  console.log(window.parent);
 };
 
 // Create a variable for the postcode. 
@@ -185,7 +184,8 @@ function showPlanningInfoButton(selectedUPRN){
   };
   //Scroll down to show the show results button
   // document.getElementById('iframe-checker-app').contentWindow.document.getElementById("show-results-button").scrollIntoView();
-  window.parent.scrollBy(0,200);
+  // window.parent.scrollBy(0,200);
+  document.getElementById("show-results-button").scrollIntoView();
 }
 
 function loadPlanningConstraints(selectedUPRN){
@@ -357,11 +357,13 @@ function loadPlanningConstraints(selectedUPRN){
         setTimeout(() => {document.getElementById("map-link").innerHTML = ""; }, 4500);
         //Scroll down to show the map
         // document.getElementById('iframe-checker-app').contentWindow.document.getElementById("div-map-iframe").scrollIntoView();
-        window.parent.scrollBy(0,200);
+        document.getElementById("map-iframe").scrollIntoView();
+        //window.parent.scrollBy(0,200);
       }      
       //Scroll down to see the results list
       // document.getElementById('iframe-checker-app').contentWindow.document.getElementById("results").scrollIntoView();
-      window.parent.scrollBy(0,200);
+      // window.parent.scrollBy(0,200);
+      document.getElementById("map-link").scrollIntoView();
     })
     .catch((error) => {
       //Catch geoserver error
