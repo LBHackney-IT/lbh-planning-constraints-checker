@@ -117,7 +117,6 @@ function GetAddressesViaProxy() {
           let selectedUPRN = selectedAddressDetails[0];
           //console.log('uprn = ' + selectedUPRN);
           showAddressDetails(selectedAddressDetails);
-          showPlanningInfoButton(selectedUPRN);
         });  
         document.getElementById("addresses").scrollIntoView();
         console.log('getElementById("addresses").scrollIntoView()')
@@ -173,6 +172,7 @@ function showAddressDetails(selectedAddressDetails){
         <dd class="govuk-summary-list__value">${selectedAddressDetails[0]}</dd>
       </div>
     </dl>`;
+    showPlanningInfoButton(selectedUPRN);
     // window.parent.scrollBy(0,200);
 }
 
