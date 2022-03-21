@@ -12,6 +12,8 @@ const axios = require('axios').default;
 document.getElementById("start-button").onclick = function(){
   document.getElementById("location-search").hidden = false;
   document.getElementById("start-button").style.display = "none";
+  window.parent.scrollBy(0,200);
+  console.log(window.parent);
 };
 
 // Create a variable for the postcode. 
@@ -105,6 +107,8 @@ function GetAddressesViaProxy() {
         //close list of addresses
         document.getElementById("addresses").innerHTML += "</select></div>";
 
+        window.parent.scrollBy(0,200);
+
         //capture the change event - when an address is selected - we load the list of results (all the planning constrainst affecting the selected address) using the UPRN selected. 
         document.getElementById("addresses").addEventListener('change', (event) => {
           //console.log('one event');
@@ -166,8 +170,8 @@ function showAddressDetails(selectedAddressDetails){
         <dt class="govuk-summary-list__key">Unique Property <br>Reference Number</dt>
         <dd class="govuk-summary-list__value">${selectedAddressDetails[0]}</dd>
       </div>
-    </dl>`
-  
+    </dl>`;
+    window.parent.scrollBy(0,200);
 }
 
 function showPlanningInfoButton(selectedUPRN){
@@ -180,7 +184,8 @@ function showPlanningInfoButton(selectedUPRN){
     loadPlanningConstraints(selectedUPRN);
   };
   //Scroll down to show the show results button
-  document.getElementById('iframe-checker-app').contentWindow.document.getElementById("show-results-button").scrollIntoView();
+  // document.getElementById('iframe-checker-app').contentWindow.document.getElementById("show-results-button").scrollIntoView();
+  window.parent.scrollBy(0,200);
 }
 
 function loadPlanningConstraints(selectedUPRN){
@@ -351,10 +356,12 @@ function loadPlanningConstraints(selectedUPRN){
         setTimeout(() => {document.getElementById("map-header").innerHTML = "<h3>Map view:</h3>";}, 4500);
         setTimeout(() => {document.getElementById("map-link").innerHTML = ""; }, 4500);
         //Scroll down to show the map
-        document.getElementById('iframe-checker-app').contentWindow.document.getElementById("div-map-iframe").scrollIntoView();
+        // document.getElementById('iframe-checker-app').contentWindow.document.getElementById("div-map-iframe").scrollIntoView();
+        window.parent.scrollBy(0,200);
       }      
       //Scroll down to see the results list
-      document.getElementById('iframe-checker-app').contentWindow.document.getElementById("results").scrollIntoView();
+      // document.getElementById('iframe-checker-app').contentWindow.document.getElementById("results").scrollIntoView();
+      window.parent.scrollBy(0,200);
     })
     .catch((error) => {
       //Catch geoserver error
