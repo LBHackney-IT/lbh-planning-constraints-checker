@@ -35,7 +35,7 @@ postcode.addEventListener("search", (e) => {
   document.getElementById("error_message").innerHTML = "";
   document.getElementById("addresses").innerHTML = '';
   document.getElementById("address-details").innerHTML = "";
-  document.getElementById("show-results-button").innerHTML = "";
+  document.getElementById("show-results-button-div").innerHTML = "";
   document.getElementById("results").innerHTML = "";
   document.getElementById("map-link").innerHTML = "";
   document.getElementById("map-header").innerHTML = "";
@@ -46,7 +46,7 @@ function GetAddressesViaProxy() {
   document.getElementById("error_message").innerHTML = "";
   document.getElementById("addresses").innerHTML = 'Loading addresses...';
   document.getElementById("address-details").innerHTML = "";
-  document.getElementById("show-results-button").innerHTML = "";
+  document.getElementById("show-results-button-div").innerHTML = "";
   document.getElementById("results").innerHTML = "";
   document.getElementById("map-link").innerHTML = "";
   document.getElementById("map-header").innerHTML = "";
@@ -180,7 +180,7 @@ function showAddressDetails(selectedAddressDetails){
 
 function showPlanningInfoButton(selectedUPRN){
   //Add button to load planning info as accordion  
-  document.getElementById("show-results-button").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button'><span><i class='far fa-list'></i></span></i> &nbsp; View planning information on this location</button>";
+  document.getElementById("show-results-button-div").innerHTML = "<button id='show-results-button' class='govuk-button  lbh-button' data-module='govuk-button'><span><i class='far fa-list'></i></span></i> &nbsp; View planning information on this location</button>";
   //local test link
   //document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='http://localhost:9000/planning-constraints/index.html?uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View planning information on a map</button>";
   //load the map when clicking on the button
@@ -339,7 +339,7 @@ function loadPlanningConstraints(selectedUPRN){
       //List the results using an accordion. 
       document.getElementById('results').innerHTML = "<h3>Planning information relevant to this location: </h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>";
       //remove the button above
-      document.getElementById("show-results-button").innerHTML = "";      
+      document.getElementById("show-results-button-div").innerHTML = "";      
       //Activate the JS of the component
       const accordion = document.querySelector('[data-module="govuk-accordion"]');
       if (accordion) {
@@ -348,7 +348,7 @@ function loadPlanningConstraints(selectedUPRN){
       
       //Add button to the planning constraints map  
       //live link    
-      document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View this planning information on a map</button>";
+      document.getElementById("map-link").innerHTML = "<button id='map-link-button' class='govuk-button  lbh-button' data-module='govuk-button'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View this planning information on a map</button>";
       //local test link
       //document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='http://localhost:9000/planning-constraints/index.html?uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View planning information on a map</button>";
       //load the map when clicking on the button
@@ -363,15 +363,15 @@ function loadPlanningConstraints(selectedUPRN){
         setTimeout(() => {document.getElementById("map-link").innerHTML = ""; }, 4500);
         //Scroll down to show the map
         // document.getElementById('iframe-checker-app').contentWindow.document.getElementById("div-map-iframe").scrollIntoView();
-        document.getElementById("map-iframe").scrollIntoView(false);
-        console.log('getElementById("map-iframe").scrollIntoView(false)')
+        document.getElementById("map-iframe").scrollIntoView();
+        console.log('getElementById("map-iframe").scrollIntoView()')
         //window.parent.scrollBy(0,200);
       }      
       //Scroll down to see the results list
       // document.getElementById('iframe-checker-app').contentWindow.document.getElementById("results").scrollIntoView();
       // window.parent.scrollBy(0,200);
-      document.getElementById("map-link").scrollIntoView(false);
-      console.log('getElementById("map-link").scrollIntoView(false)')
+      document.getElementById("map-link-button").scrollIntoView(false);
+      console.log('getElementById("map-link-button").scrollIntoView(false)')
     })
     .catch((error) => {
       //Catch geoserver error
