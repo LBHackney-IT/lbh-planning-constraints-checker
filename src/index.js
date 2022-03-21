@@ -12,7 +12,7 @@ const axios = require('axios').default;
 document.getElementById("start-button").onclick = function(){
   document.getElementById("location-search").hidden = false;
   document.getElementById("start-button").style.display = "none";
-  window.parent.scrollBy(0,200);
+  // window.parent.scrollBy(0,200);
 };
 
 // Create a variable for the postcode. 
@@ -106,7 +106,7 @@ function GetAddressesViaProxy() {
         //close list of addresses
         document.getElementById("addresses").innerHTML += "</select></div>";
 
-        window.parent.scrollBy(0,200);
+        // window.parent.scrollBy(0,200);
 
         //capture the change event - when an address is selected - we load the list of results (all the planning constrainst affecting the selected address) using the UPRN selected. 
         document.getElementById("addresses").addEventListener('change', (event) => {
@@ -170,7 +170,7 @@ function showAddressDetails(selectedAddressDetails){
         <dd class="govuk-summary-list__value">${selectedAddressDetails[0]}</dd>
       </div>
     </dl>`;
-    window.parent.scrollBy(0,200);
+    // window.parent.scrollBy(0,200);
 }
 
 function showPlanningInfoButton(selectedUPRN){
