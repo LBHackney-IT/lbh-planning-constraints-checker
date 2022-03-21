@@ -118,8 +118,8 @@ function GetAddressesViaProxy() {
           //console.log('uprn = ' + selectedUPRN);
           showAddressDetails(selectedAddressDetails);
         });  
-        document.getElementById("addresses").scrollIntoView();
-        console.log('getElementById("addresses").scrollIntoView()')
+        document.getElementById("selectedAddress").scrollIntoView();
+        console.log('getElementById("selectedAddress").scrollIntoView()')
       }
     }
   }).catch(error => {
