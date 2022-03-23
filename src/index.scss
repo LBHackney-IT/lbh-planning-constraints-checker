@@ -49,6 +49,11 @@ $lbh-global-styles: true;
     margin-top: 60px;
 }
 
+.loading-text{
+    font-style: italic;
+    font-weight: $lbh-font-weight-light;
+}
+
 .js-enabled {
 	
 	// This fix prevents a horizontal scrollbar if the accordion is in an iframe

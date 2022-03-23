@@ -44,7 +44,7 @@ postcode.addEventListener("search", (e) => {
 
 function GetAddressesViaProxy() {
   document.getElementById("error_message").innerHTML = "";
-  document.getElementById("addresses").innerHTML = 'Loading addresses...';
+  document.getElementById("addresses").innerHTML = '<p class="loading-text"> Loading addresses...</p>';
   document.getElementById("address-details").innerHTML = "";
   document.getElementById("show-results-button-div").innerHTML = "";
   document.getElementById("results").innerHTML = "";
@@ -197,7 +197,7 @@ function showPlanningInfoButton(selectedUPRN){
 
 function loadPlanningConstraints(selectedUPRN){
   //message about loading
-  document.getElementById('results').innerHTML = "<p>Retrieving planning information...</p>"; 
+  document.getElementById('results').innerHTML = '<p class="loading-text"> Retrieving planning information...</p>'; 
   document.getElementById("map-link").innerHTML = "";
   document.getElementById("map-iframe").style.display = 'none';
   //console.log(selectedUPRN);
@@ -354,7 +354,7 @@ function loadPlanningConstraints(selectedUPRN){
       //document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='http://localhost:9000/planning-constraints/index.html?uprn="+ selectedUPRN + "' target='_blank'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View planning information on a map</button>";
       //load the map when clicking on the button
       document.getElementById("map-link").onclick = function loadMap() {
-        document.getElementById('map-header').innerHTML = "<p>Loading map...</p>"; 
+        document.getElementById('map-header').innerHTML = '<p class="loading-text"> Loading map...</p>'; 
         //local test link
         //document.getElementById("map-iframe").src='http://localhost:9000/planning-constraints/embed?uprn='+ selectedUPRN;
         //live link
