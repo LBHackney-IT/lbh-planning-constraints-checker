@@ -16,7 +16,6 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
-    "iframe-resizer": "^4.2.10",
     "lbh-frontend": "^3.5.2"
   },
   "devDependencies": {
