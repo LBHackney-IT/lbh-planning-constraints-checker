@@ -109,8 +109,6 @@ function GetAddressesViaProxy() {
         //close list of addresses
         document.getElementById("addresses").innerHTML += "</select></div>";
 
-        // window.parent.scrollBy(0,200);
-
         //capture the change event - when an address is selected - we load the list of results (all the planning constrainst affecting the selected address) using the UPRN selected. 
         document.getElementById("addresses").addEventListener('change', (event) => {
           //console.log('one event');
@@ -120,8 +118,8 @@ function GetAddressesViaProxy() {
           //console.log('uprn = ' + selectedUPRN);
           showAddressDetails(selectedAddressDetails);
         });  
-        window.scrollBy(0,200);
-        console.log('scroll by 200;');
+        // window.scrollBy(0,200);
+        // console.log('scroll by 200;');
         // document.getElementById("selectedAddress").scrollIntoView(false);
         // console.log('getElementById("selectedAddress").scrollIntoView(false)')
       }
@@ -191,8 +189,8 @@ function showPlanningInfoButton(selectedUPRN){
   };
   //Scroll down to show the show results button
   // document.getElementById('iframe-checker-app').contentWindow.document.getElementById("show-results-button").scrollIntoView();
-  window.scrollBy(0,400);
-  console.log('scroll by 400;');
+  // window.scrollBy(0,400);
+  // console.log('scroll by 400;');
   // document.getElementById("show-results-button").scrollIntoView(false);
   // console.log('getElementById("show-results-button").scrollIntoView(false)')
 }
@@ -365,15 +363,15 @@ function loadPlanningConstraints(selectedUPRN){
         setTimeout(() => {document.getElementById("map-header").innerHTML = "<h3>Map view:</h3>";}, 4500);
         setTimeout(() => {document.getElementById("map-link").innerHTML = ""; }, 4500);
         //Scroll down to show the map
-        window.scrollBy(0,200);
-        console.log('scroll by 200;');
+        // window.scrollBy(0,200);
+        // console.log('scroll by 200;');
         // document.getElementById("map-iframe").scrollIntoView();
         // console.log('getElementById("map-iframe").scrollIntoView()')
         //window.parent.scrollBy(0,200);
       }      
       //Scroll down to see the results list
-      window.scrollBy(0,400);
-      console.log('scroll by 400;');
+      // window.scrollBy(0,400);
+      // console.log('scroll by 400;');
       // document.getElementById("map-link-button").scrollIntoView(false);
       // console.log('getElementById("map-link-button").scrollIntoView(false)')
     })
