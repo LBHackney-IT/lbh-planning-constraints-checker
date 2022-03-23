@@ -10,12 +10,10 @@ const axios = require('axios').default;
 
 //activate the start button
 document.getElementById("start-button").onclick = function(){
-  console.log('first click');
   document.getElementById("location-search").hidden = false;
   document.getElementById("start-button").style.display = "none";
-  // document.getElementById("search").scrollIntoView(false);
-  // console.log('document.getElementById("search").scrollIntoView(false);');
-  // window.parent.scrollBy(0,200);
+  // console.log('Clicking Start: document.getElementById("search").scrollIntoView(false);');
+  document.getElementById("search").scrollIntoView(false);
 };
 
 // Create a variable for the postcode. 
@@ -52,82 +50,86 @@ function GetAddressesViaProxy() {
   document.getElementById("map-header").innerHTML = "";
   document.getElementById("map-iframe").style.display= 'none';
 
+  document.getElementById("addresses").scrollIntoView(false);
+  console.log('before loading addresses - getElementById("addresses").scrollIntoView(false)')
+
   //Get the postcode value
   let postcode = document.getElementById("postcode").value;
   let results = null;
   
-
-  // document.getElementById("results").innerHTML = "";
-  // document.getElementById("address-details").innerHTML = "";
-
-  //First call to get the list of addresses from a postcode
-  fetch(`${process.env.ADDRESSES_API_PROXY_PROD}?format=detailed&query=${postcode}`, {
-    method: "get"
-  })
-  .then(response => response.json())
-  .then(data => {
-    //console.log(data);
-    //Get API error messages if the UPRN values are not right
-    if (data.data.errors) {
-      document.getElementById("error_message").innerHTML = response.data.errors[0].message;
-      document.getElementById("addresses").innerHTML = '';
-    //If there are no errors...
-    } 
-    else {
-      results = data.data.data.address;
-      let pageCount = data.data.data.pageCount;
-      //If there are no results, the postcode is not right. 
-      if (results.length === 0) {
-        document.getElementById("error_message").innerHTML = "No Hackney location found. Please amend your search.";
+  if (! postcode){
+    document.getElementById("error_message").innerHTML = "Please enter some text in the location search.";
+  }
+  else{
+    //First call to get the list of addresses from a postcode
+    fetch(`${process.env.ADDRESSES_API_PROXY_PROD}?format=detailed&query=${postcode}`, {
+      method: "get"
+    })
+    .then(response => response.json())
+    .then(data => {
+      //console.log(data);
+      //Get API error messages if the UPRN values are not right
+      if (data.data.errors) {
+        document.getElementById("error_message").innerHTML = response.data.errors[0].message;
         document.getElementById("addresses").innerHTML = '';
-        document.getElementById("address-details").innerHTML = '';
-      }
+      //If there are no errors...
+      } 
       else {
-
-        //If there are results from the addresses proxy, we list them. 
-        //first, replace list element with a clone of itself, in order to remove previous listeners
-        //let listElement = document.getElementById("addresses");
-        document.getElementById("addresses").replaceWith(document.getElementById("addresses").cloneNode(true));
-        //now fill the list
-        document.getElementById("addresses").innerHTML = "<div class='govuk-form-group lbh-form-group'>"
-          + "<select class='govuk-select govuk-!-width-full lbh-select' id='selectedAddress' name='selectedAddress'>";
-
-        document.getElementById("selectedAddress").innerHTML = "<option disabled selected value> Select a location from the list </option>";
-        for (let index = 0; index < results.length; ++index) {
-          // full_address = results[index].singleLineAddress;
-          // UPRN = results[index].UPRN;
-          document.getElementById("selectedAddress").innerHTML += "<option value='" + results[index].UPRN + "//" + results[index].singleLineAddress + "//" + results[index].usageDescription + "//" + results[index].ward + "'>" + results[index].singleLineAddress + "</option>";
+        results = data.data.data.address;
+        let pageCount = data.data.data.pageCount;
+        //If there are no results, the postcode is not right. 
+        if (results.length === 0) {
+          document.getElementById("error_message").innerHTML = "No Hackney location found. Please amend your search.";
+          document.getElementById("addresses").innerHTML = '';
+          document.getElementById("address-details").innerHTML = '';
         }
+        else {
 
-        //load more pages of results if needed
-        if (pageCount > 1) {
-          for (let pgindex = 2 ; pgindex<=pageCount ; ++pgindex){
-            loadAddressAPIPageViaProxy(postcode, pgindex);
+          //If there are results from the addresses proxy, we list them. 
+          //first, replace list element with a clone of itself, in order to remove previous listeners
+          //let listElement = document.getElementById("addresses");
+          document.getElementById("addresses").replaceWith(document.getElementById("addresses").cloneNode(true));
+          //now fill the list
+          document.getElementById("addresses").innerHTML = "<div class='govuk-form-group lbh-form-group'>"
+            + "<select class='govuk-select govuk-!-width-full lbh-select' id='selectedAddress' name='selectedAddress'>";
+
+          document.getElementById("selectedAddress").innerHTML = "<option disabled selected value> Select a location from the list </option>";
+          for (let index = 0; index < results.length; ++index) {
+            // full_address = results[index].singleLineAddress;
+            // UPRN = results[index].UPRN;
+            document.getElementById("selectedAddress").innerHTML += "<option value='" + results[index].UPRN + "//" + results[index].singleLineAddress + "//" + results[index].usageDescription + "//" + results[index].ward + "'>" + results[index].singleLineAddress + "</option>";
           }
+
+          //load more pages of results if needed
+          if (pageCount > 1) {
+            for (let pgindex = 2 ; pgindex<=pageCount ; ++pgindex){
+              loadAddressAPIPageViaProxy(postcode, pgindex);
+            }
+          }
+
+          //close list of addresses
+          document.getElementById("addresses").innerHTML += "</select></div>";
+
+          //capture the change event - when an address is selected - we load the list of results (all the planning constrainst affecting the selected address) using the UPRN selected. 
+          document.getElementById("addresses").addEventListener('change', (event) => {
+            //console.log('one event');
+            //get the selected UPRN and address details from the list of addresses
+            let selectedAddressDetails = document.querySelector('#selectedAddress').value.split('//');
+            let selectedUPRN = selectedAddressDetails[0];
+            //console.log('uprn = ' + selectedUPRN);
+            showAddressDetails(selectedAddressDetails);
+          });  
+          // window.scrollBy(0,200);
+          // console.log('scroll by 200;');
+          document.getElementById("selectedAddress").scrollIntoView(false);
+          console.log('after loading addresses - getElementById("selectedAddress").scrollIntoView(false)')
         }
-
-        //close list of addresses
-        document.getElementById("addresses").innerHTML += "</select></div>";
-
-        //capture the change event - when an address is selected - we load the list of results (all the planning constrainst affecting the selected address) using the UPRN selected. 
-        document.getElementById("addresses").addEventListener('change', (event) => {
-          //console.log('one event');
-          //get the selected UPRN and address details from the list of addresses
-          let selectedAddressDetails = document.querySelector('#selectedAddress').value.split('//');
-          let selectedUPRN = selectedAddressDetails[0];
-          //console.log('uprn = ' + selectedUPRN);
-          showAddressDetails(selectedAddressDetails);
-        });  
-        // window.scrollBy(0,200);
-        // console.log('scroll by 200;');
-        // document.getElementById("selectedAddress").scrollIntoView(false);
-        // console.log('getElementById("selectedAddress").scrollIntoView(false)')
       }
-    }
-  }).catch(error => {
-    document.getElementById("error_message").innerHTML = "Sorry, an error occured while retrieving locations";
-    document.getElementById("addresses").innerHTML = '';
-  })
+    }).catch(error => {
+      document.getElementById("error_message").innerHTML = "Sorry, an error occured while retrieving locations";
+      document.getElementById("addresses").innerHTML = '';
+    })
+  }  
 };
 
 //function to add one page of results to the options list
@@ -188,11 +190,9 @@ function showPlanningInfoButton(selectedUPRN){
     loadPlanningConstraints(selectedUPRN);
   };
   //Scroll down to show the show results button
-  // document.getElementById('iframe-checker-app').contentWindow.document.getElementById("show-results-button").scrollIntoView();
-  // window.scrollBy(0,400);
-  // console.log('scroll by 400;');
-  // document.getElementById("show-results-button").scrollIntoView(false);
-  // console.log('getElementById("show-results-button").scrollIntoView(false)')
+
+  document.getElementById("show-results-button").scrollIntoView(false);
+  console.log('After displaying address details - getElementById("show-results-button").scrollIntoView(false)')
 }
 
 function loadPlanningConstraints(selectedUPRN){
@@ -200,7 +200,10 @@ function loadPlanningConstraints(selectedUPRN){
   document.getElementById('results').innerHTML = '<p class="loading-text"> Retrieving planning information...</p>'; 
   document.getElementById("map-link").innerHTML = "";
   document.getElementById("map-iframe").style.display = 'none';
-  //console.log(selectedUPRN);
+  
+  document.getElementById("results").scrollIntoView(false);
+  console.log('Before fetching planninng info - getElementById("results").scrollIntoView(false)')
+
   //call to the planning constraints layer where we have all the planning information for each UPRN
   axios.get(`${process.env.GEOSERVER_URL}?service=WFS&version=1.0.0&request=GetFeature&outputFormat=json&typeName=planning_constraints_by_uprn&cql_filter=uprn='${selectedUPRN}'`)
     .then((res) => {
@@ -355,6 +358,8 @@ function loadPlanningConstraints(selectedUPRN){
       //load the map when clicking on the button
       document.getElementById("map-link").onclick = function loadMap() {
         document.getElementById('map-header').innerHTML = '<p class="loading-text"> Loading map...</p>'; 
+        document.getElementById("map-header").scrollIntoView(false);
+        console.log('Before loading map - getElementById("map-header").scrollIntoView(false)')
         //local test link
         //document.getElementById("map-iframe").src='http://localhost:9000/planning-constraints/embed?uprn='+ selectedUPRN;
         //live link
@@ -365,15 +370,14 @@ function loadPlanningConstraints(selectedUPRN){
         //Scroll down to show the map
         // window.scrollBy(0,200);
         // console.log('scroll by 200;');
-        // document.getElementById("map-iframe").scrollIntoView();
-        // console.log('getElementById("map-iframe").scrollIntoView()')
-        //window.parent.scrollBy(0,200);
+        document.getElementById("map-iframe").scrollIntoView();
+        console.log('5sec into loading map - getElementById("map-iframe").scrollIntoView()')
       }      
       //Scroll down to see the results list
       // window.scrollBy(0,400);
       // console.log('scroll by 400;');
-      // document.getElementById("map-link-button").scrollIntoView(false);
-      // console.log('getElementById("map-link-button").scrollIntoView(false)')
+      document.getElementById("map-link-button").scrollIntoView(false);
+      console.log('After displaying the list view - getElementById("map-link-button").scrollIntoView(false)')
     })
     .catch((error) => {
       //Catch geoserver error
