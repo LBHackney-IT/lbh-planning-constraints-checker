@@ -13,7 +13,7 @@ document.getElementById("start-button").onclick = function(){
   document.getElementById("location-search").hidden = false;
   document.getElementById("start-button").style.display = "none";
   // console.log('Clicking Start: document.getElementById("search").scrollIntoView(false);');
-  document.getElementById("search").scrollIntoView(false);
+  document.getElementById("search").scrollIntoView({block: "nearest"});
 };
 
 // Create a variable for the postcode. 
@@ -50,7 +50,7 @@ function GetAddressesViaProxy() {
   document.getElementById("map-header").innerHTML = "";
   document.getElementById("map-iframe").style.display= 'none';
 
-  document.getElementById("addresses").scrollIntoView(false);
+  document.getElementById("addresses").scrollIntoView({block: "nearest"});
   console.log('before loading addresses - getElementById("addresses").scrollIntoView(false)')
 
   //Get the postcode value
@@ -116,12 +116,18 @@ function GetAddressesViaProxy() {
             //get the selected UPRN and address details from the list of addresses
             let selectedAddressDetails = document.querySelector('#selectedAddress').value.split('//');
             let selectedUPRN = selectedAddressDetails[0];
-            //console.log('uprn = ' + selectedUPRN);
+            
             showAddressDetails(selectedAddressDetails);
+            //hide components below address details
+            document.getElementById("results").innerHTML = "";
+            document.getElementById("map-link").innerHTML = "";
+            document.getElementById("map-header").innerHTML = "";
+            document.getElementById("map-iframe").style.display= 'none';
+
           });  
           // window.scrollBy(0,200);
           // console.log('scroll by 200;');
-          document.getElementById("selectedAddress").scrollIntoView(false);
+          document.getElementById("selectedAddress").scrollIntoView({block: "nearest"});
           console.log('after loading addresses - getElementById("selectedAddress").scrollIntoView(false)')
         }
       }
@@ -191,8 +197,9 @@ function showPlanningInfoButton(selectedUPRN){
   };
   //Scroll down to show the show results button
 
-  document.getElementById("show-results-button").scrollIntoView(false);
-  console.log('After displaying address details - getElementById("show-results-button").scrollIntoView(false)')
+  document.getElementById("show-results-button-div").scrollIntoView(true);
+  console.log('After displaying address details - getElementById("show-results-button-div").scrollIntoView(true)')
+  //window.scrollBy(0,20);
 }
 
 function loadPlanningConstraints(selectedUPRN){
@@ -201,7 +208,7 @@ function loadPlanningConstraints(selectedUPRN){
   document.getElementById("map-link").innerHTML = "";
   document.getElementById("map-iframe").style.display = 'none';
   
-  document.getElementById("results").scrollIntoView(false);
+  document.getElementById("results").scrollIntoView({block: "nearest"});
   console.log('Before fetching planninng info - getElementById("results").scrollIntoView(false)')
 
   //call to the planning constraints layer where we have all the planning information for each UPRN
@@ -358,7 +365,7 @@ function loadPlanningConstraints(selectedUPRN){
       //load the map when clicking on the button
       document.getElementById("map-link").onclick = function loadMap() {
         document.getElementById('map-header').innerHTML = '<p class="loading-text"> Loading map...</p>'; 
-        document.getElementById("map-header").scrollIntoView(false);
+        document.getElementById("map-header").scrollIntoView({block: "nearest"});
         console.log('Before loading map - getElementById("map-header").scrollIntoView(false)')
         //local test link
         //document.getElementById("map-iframe").src='http://localhost:9000/planning-constraints/embed?uprn='+ selectedUPRN;
@@ -370,14 +377,14 @@ function loadPlanningConstraints(selectedUPRN){
         //Scroll down to show the map
         // window.scrollBy(0,200);
         // console.log('scroll by 200;');
-        document.getElementById("map-iframe").scrollIntoView();
+        document.getElementById("map-header").scrollIntoView();
         console.log('5sec into loading map - getElementById("map-iframe").scrollIntoView()')
       }      
       //Scroll down to see the results list
       // window.scrollBy(0,400);
       // console.log('scroll by 400;');
-      document.getElementById("map-link-button").scrollIntoView(false);
-      console.log('After displaying the list view - getElementById("map-link-button").scrollIntoView(false)')
+      document.getElementById("map-link").scrollIntoView(true);
+      console.log('After displaying the list view - getElementById("map-link").scrollIntoView(true)')
     })
     .catch((error) => {
       //Catch geoserver error
