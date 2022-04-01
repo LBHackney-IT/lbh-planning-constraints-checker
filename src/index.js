@@ -374,16 +374,17 @@ function loadPlanningConstraints(selectedUPRN){
         document.getElementById("map-iframe").style.display= 'block';
         setTimeout(() => {document.getElementById("map-header").innerHTML = "<h3>Map view:</h3>";}, 4500);
         setTimeout(() => {document.getElementById("map-link").innerHTML = ""; }, 4500);
+        setTimeout(() => {document.getElementById("map-header").scrollIntoView(true);}, 4500);
         //Scroll down to show the map
-        // window.scrollBy(0,200);
+        window.scrollBy(0,400);
         // console.log('scroll by 200;');
-        document.getElementById("map-header").scrollIntoView();
-        console.log('5sec into loading map - getElementById("map-iframe").scrollIntoView()')
+        // document.getElementById("map-header").scrollIntoView();
+        // console.log('5sec into loading map - getElementById("map-iframe").scrollIntoView()')
       }      
       //Scroll down to see the results list
       // window.scrollBy(0,400);
       // console.log('scroll by 400;');
-      document.getElementById("map-link").scrollIntoView(true);
+      document.getElementById("map-header").scrollIntoView(true);
       console.log('After displaying the list view - getElementById("map-link").scrollIntoView(true)')
     })
     .catch((error) => {
