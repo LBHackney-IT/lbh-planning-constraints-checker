@@ -13,7 +13,8 @@ document.getElementById("start-button").onclick = function(){
   document.getElementById("location-search").hidden = false;
   document.getElementById("start-button").style.display = "none";
   // console.log('Clicking Start: document.getElementById("search").scrollIntoView(false);');
-  document.getElementById("search").scrollIntoView({block: "nearest"});
+  // document.getElementById("search").scrollIntoView({block: "nearest"});
+  window.scrollBy(0, 100);
 };
 
 // Create a variable for the postcode. 
@@ -125,10 +126,9 @@ function GetAddressesViaProxy() {
             document.getElementById("map-iframe").style.display= 'none';
 
           });  
-          // window.scrollBy(0,200);
-          // console.log('scroll by 200;');
-          document.getElementById("selectedAddress").scrollIntoView({block: "nearest"});
-          console.log('after loading addresses - getElementById("selectedAddress").scrollIntoView(false)')
+          window.scrollBy(0,50);
+          //document.getElementById("selectedAddress").scrollIntoView({block: "nearest"});
+          console.log('after loading addresses - scroll by 50')
         }
       }
     }).catch(error => {
