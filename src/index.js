@@ -80,7 +80,7 @@ function GetAddressesViaProxy() {
         let pageCount = data.data.data.pageCount;
         //If there are no results, the postcode is not right. 
         if (results.length === 0) {
-          document.getElementById("error_message").innerHTML = "No Hackney location found. Please amend your search.";
+          document.getElementById("error_message").innerHTML = "No Hackney location found. Please amend your search.<br>If entering a full postcodes, please include a space (e.g. E8 1HH)";
           document.getElementById("addresses").innerHTML = '';
           document.getElementById("address-details").innerHTML = '';
         }
