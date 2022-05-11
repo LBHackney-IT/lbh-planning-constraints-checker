@@ -55,15 +55,30 @@ function GetAddressesViaProxy() {
   console.log('before loading addresses - getElementById("addresses").scrollIntoView(false)')
 
   //Get the postcode value
-  let postcode = document.getElementById("postcode").value;
+  let address_input = document.getElementById("postcode").value;
+  
+  //test agains postcode regex
+  let postcode_regex = new RegExp("^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$");
+  let isPostcode = postcode_regex.test(address_input);
+  console.log('isPostcode = '+ isPostcode);
   let results = null;
   
-  if (! postcode){
+  if (! address_input){
     document.getElementById("error_message").innerHTML = "Please enter some text in the location search.";
   }
   else{
+    //prepare query to send to the API, depending if we ave got a postcode or not
+    let APIQueryString = '';
+    if (isPostcode) {
+      APIQueryString = `${process.env.ADDRESSES_API_PROXY_PROD}?format=detailed&postcode=${address_input}`;
+      console.log('sending a postcode search');
+    }
+    else {
+      APIQueryString = `${process.env.ADDRESSES_API_PROXY_PROD}?format=detailed&query=${address_input}`;
+      console.log('sending a full text search');
+    }
     //First call to get the list of addresses from a postcode
-    fetch(`${process.env.ADDRESSES_API_PROXY_PROD}?format=detailed&query=${postcode}`, {
+    fetch(APIQueryString, {
       method: "get"
     })
     .then(response => response.json())
