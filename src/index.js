@@ -103,10 +103,10 @@ function GetAddressesViaProxy() {
             + "<select class='govuk-select govuk-!-width-full lbh-select' id='selectedAddress' name='selectedAddress'>";
 
           document.getElementById("selectedAddress").innerHTML = "<option disabled selected value> Select a location from the list </option>";
-          for (let index = 0; index < results.length; ++index) {
-            // full_address = results[index].singleLineAddress;
-            // UPRN = results[index].UPRN;
-            document.getElementById("selectedAddress").innerHTML += "<option value='" + results[index].UPRN + "//" + results[index].singleLineAddress + "//" + results[index].usageDescription + "//" + results[index].ward + "'>" + results[index].singleLineAddress + "</option>";
+          for (let index = 0; index < results.length; ++index) {         
+            if (results[index].addressStatus == 'Approved'){
+              document.getElementById("selectedAddress").innerHTML += "<option value='" + results[index].UPRN + "//" + results[index].singleLineAddress + "//" + results[index].usageDescription + "//" + results[index].ward + "'>" + results[index].singleLineAddress + "</option>";
+            }             
           }
 
           //load more pages of results if needed
@@ -155,10 +155,9 @@ function loadAddressAPIPageViaProxy(postcode, pg) {
   .then(data => {
     results = data.data.data.address;
     for (let index = 0; index < results.length; ++index) {      
-      // full_address = [results[index].line1, results[index].line2, results[index].line3, results[index].line4].filter(Boolean).join(", ");
-      full_address = results[index].singleLineAddress;
-      UPRN = results[index].UPRN;
-      document.getElementById("selectedAddress").innerHTML += "<option value='" + results[index].uprn + "/" + results[index].singleLineAddress + "/" + results[index].usageDescription + "/" + results[index].ward + "'>" + results[index].singleLineAddress + "</option>";
+      if (results[index].addressStatus == 'Approved'){
+        document.getElementById("selectedAddress").innerHTML += "<option value='" + results[index].uprn + "/" + results[index].singleLineAddress + "/" + results[index].usageDescription + "/" + results[index].ward + "'>" + results[index].singleLineAddress + "</option>";
+      }
     }
   })
 };
