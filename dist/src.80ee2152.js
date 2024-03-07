@@ -189,7 +189,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"C:\\Users\\mvillalobos\\HackITApps\\lbh-constraints-checker\\src\\assets\\images\\contact\\address.svg":[["address.1c5af81c.svg","assets/images/contact/address.svg"],"assets/images/contact/address.svg"],"C:\\Users\\mvillalobos\\HackITApps\\lbh-constraints-checker\\src\\assets\\images\\contact\\email.svg":[["email.47266a5c.svg","assets/images/contact/email.svg"],"assets/images/contact/email.svg"],"C:\\Users\\mvillalobos\\HackITApps\\lbh-constraints-checker\\src\\assets\\images\\contact\\telephone.svg":[["telephone.82b97a9a.svg","assets/images/contact/telephone.svg"],"assets/images/contact/telephone.svg"],"C:\\Users\\mvillalobos\\HackITApps\\lbh-constraints-checker\\src\\assets\\images\\contact\\notes.svg":[["notes.28d2432c.svg","assets/images/contact/notes.svg"],"assets/images/contact/notes.svg"],"C:\\Users\\mvillalobos\\HackITApps\\lbh-constraints-checker\\src\\assets\\images\\contact\\opening-times.svg":[["opening-times.2a5e1988.svg","assets/images/contact/opening-times.svg"],"assets/images/contact/opening-times.svg"],"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"C:\\Users\\Cliff Chavhundura\\Documents\\Code\\h\\lbh-planning-constraints-checker\\src\\assets\\images\\contact\\address.svg":[["address.1c5af81c.svg","assets/images/contact/address.svg"],"assets/images/contact/address.svg"],"C:\\Users\\Cliff Chavhundura\\Documents\\Code\\h\\lbh-planning-constraints-checker\\src\\assets\\images\\contact\\email.svg":[["email.47266a5c.svg","assets/images/contact/email.svg"],"assets/images/contact/email.svg"],"C:\\Users\\Cliff Chavhundura\\Documents\\Code\\h\\lbh-planning-constraints-checker\\src\\assets\\images\\contact\\telephone.svg":[["telephone.82b97a9a.svg","assets/images/contact/telephone.svg"],"assets/images/contact/telephone.svg"],"C:\\Users\\Cliff Chavhundura\\Documents\\Code\\h\\lbh-planning-constraints-checker\\src\\assets\\images\\contact\\notes.svg":[["notes.28d2432c.svg","assets/images/contact/notes.svg"],"assets/images/contact/notes.svg"],"C:\\Users\\Cliff Chavhundura\\Documents\\Code\\h\\lbh-planning-constraints-checker\\src\\assets\\images\\contact\\opening-times.svg":[["opening-times.2a5e1988.svg","assets/images/contact/opening-times.svg"],"assets/images/contact/opening-times.svg"],"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +217,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59042" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59336" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
