@@ -9227,43 +9227,8 @@ x:-moz-any-link {
   margin: 0;
 }
 
-.start-button {
-  font-weight: bold;
-}
-
 .govuk-input--width-10 {
   max-width: 380px;
-  margin-bottom: 10px;
-}
-
-.address-list-div {
-  height: 50px;
-}
-
-.address-details-div {
-  margin-top: 60px;
-}
-
-.results-div {
-  margin-top: 60px;
-}
-
-.lbh-summary-list {
-  margin-top: 30px;
-}
-
-.button-div {
-  margin-top: 60px;
-  margin-bottom: 20px;
-}
-
-.loading-text {
-  font-style: italic;
-  font-weight: 400;
-}
-
-.js-enabled .govuk-accordion__open-all {
-  padding-right: 1px;
 }
 
 /*# sourceMappingURL=/src.80ee2152.css.map */
