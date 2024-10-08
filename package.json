@@ -11,15 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@fortawesome/fontawesome-pro": "^5.15.4",
-    "@fortawesome/fontawesome-svg-core": "^1.2.36",
-    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/fontawesome-free": "^6.6.0",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "lbh-frontend": "^3.5.2"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.4",
     "parcel-bundler": "^1.12.5",
     "sass": "^1.38.0"
   }
