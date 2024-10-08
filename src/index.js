@@ -104,7 +104,7 @@ function GetAddressesViaProxy() {
           document.getElementById("selectedAddress").innerHTML = "<option disabled selected value> Select a location from the list </option>";
           for (let index = 0; index < results.length; ++index) {         
             if (results[index].addressStatus == 'Approved'){
-              document.getElementById("selectedAddress").innerHTML += "<option value='" + results[index].UPRN + "//" + results[index].singleLineAddress + "//" + results[index].usageDescription + "//" + results[index].ward + "'>" + results[index].singleLineAddress + "</option>";
+              document.getElementById("selectedAddress").innerHTML += "<option value=\"" + results[index].UPRN + "//" + results[index].singleLineAddress + "//" + results[index].usageDescription + "//" + results[index].ward + "\">" + results[index].singleLineAddress + "</option>";
             }             
           }
 
@@ -155,7 +155,7 @@ function loadAddressAPIPageViaProxy(postcode, pg) {
     results = data.data.data.address;
     for (let index = 0; index < results.length; ++index) {      
       if (results[index].addressStatus == 'Approved'){
-        document.getElementById("selectedAddress").innerHTML += "<option value='" + results[index].uprn + "/" + results[index].singleLineAddress + "/" + results[index].usageDescription + "/" + results[index].ward + "'>" + results[index].singleLineAddress + "</option>";
+        document.getElementById("selectedAddress").innerHTML += "<option value=\"" + results[index].uprn + "/" + results[index].singleLineAddress + "/" + results[index].usageDescription + "/" + results[index].ward + "\">" + results[index].singleLineAddress + "</option>";
       }
     }
   })
