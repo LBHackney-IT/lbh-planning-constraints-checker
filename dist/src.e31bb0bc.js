@@ -16535,84 +16535,7 @@ function initAll(options) {
     new _collapsible.default($collapsible).init();
   });
 }
-},{"govuk-frontend":"../node_modules/govuk-frontend/govuk/all.js","./components/lbh-accordion/accordion":"../node_modules/lbh-frontend/lbh/components/lbh-accordion/accordion.js","./components/lbh-back-to-top/back-to-top":"../node_modules/lbh-frontend/lbh/components/lbh-back-to-top/back-to-top.js","./components/lbh-button/button":"../node_modules/lbh-frontend/lbh/components/lbh-button/button.js","./components/lbh-character-count/character-count":"../node_modules/lbh-frontend/lbh/components/lbh-character-count/character-count.js","./components/lbh-checkboxes/checkboxes":"../node_modules/lbh-frontend/lbh/components/lbh-checkboxes/checkboxes.js","./components/lbh-cookie-banner/cookie-banner":"../node_modules/lbh-frontend/lbh/components/lbh-cookie-banner/cookie-banner.js","./components/lbh-details/details":"../node_modules/lbh-frontend/lbh/components/lbh-details/details.js","./components/lbh-error-summary/error-summary":"../node_modules/lbh-frontend/lbh/components/lbh-error-summary/error-summary.js","./components/lbh-contact-block/contact-block":"../node_modules/lbh-frontend/lbh/components/lbh-contact-block/contact-block.js","./components/lbh-radios/radios":"../node_modules/lbh-frontend/lbh/components/lbh-radios/radios.js","./components/lbh-tabs/tabs":"../node_modules/lbh-frontend/lbh/components/lbh-tabs/tabs.js","./components/lbh-collapsible/collapsible":"../node_modules/lbh-frontend/lbh/components/lbh-collapsible/collapsible.js"}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/@fortawesome/fontawesome-free/css/all.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"./..\\webfonts\\fa-brands-400.eot":[["fa-brands-400.7b5acd02.eot","../node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.eot"],"../node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.eot"],"./..\\webfonts\\fa-brands-400.woff2":[["fa-brands-400.34cc846b.woff2","../node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2"],"../node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2"],"./..\\webfonts\\fa-brands-400.woff":[["fa-brands-400.75159956.woff","../node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff"],"../node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff"],"./..\\webfonts\\fa-brands-400.ttf":[["fa-brands-400.f885063e.ttf","../node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf"],"../node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf"],"./..\\webfonts\\fa-brands-400.svg":[["fa-brands-400.1f0eb095.svg","../node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.svg"],"../node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.svg"],"./..\\webfonts\\fa-regular-400.eot":[["fa-regular-400.d4b9b17f.eot","../node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.eot"],"../node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.eot"],"./..\\webfonts\\fa-regular-400.woff2":[["fa-regular-400.82c42f2f.woff2","../node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2"],"../node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2"],"./..\\webfonts\\fa-regular-400.woff":[["fa-regular-400.adc5c7aa.woff","../node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff"],"../node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff"],"./..\\webfonts\\fa-regular-400.ttf":[["fa-regular-400.b073eab5.ttf","../node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf"],"../node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf"],"./..\\webfonts\\fa-regular-400.svg":[["fa-regular-400.16d6ac71.svg","../node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.svg"],"../node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.svg"],"./..\\webfonts\\fa-solid-900.eot":[["fa-solid-900.0b60ff24.eot","../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.eot"],"../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.eot"],"./..\\webfonts\\fa-solid-900.woff2":[["fa-solid-900.55d5ef42.woff2","../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"],"../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"],"./..\\webfonts\\fa-solid-900.woff":[["fa-solid-900.f824330b.woff","../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff"],"../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff"],"./..\\webfonts\\fa-solid-900.ttf":[["fa-solid-900.47a039f3.ttf","../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf"],"../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf"],"./..\\webfonts\\fa-solid-900.svg":[["fa-solid-900.d08d5f59.svg","../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.svg"],"../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.svg"],"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/@fortawesome/fontawesome-pro/css/all.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"./..\\webfonts\\fa-brands-400.eot":[["fa-brands-400.6bbd4f82.eot","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-brands-400.eot"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-brands-400.eot"],"./..\\webfonts\\fa-brands-400.woff2":[["fa-brands-400.85c3639b.woff2","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-brands-400.woff2"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-brands-400.woff2"],"./..\\webfonts\\fa-brands-400.woff":[["fa-brands-400.806500a5.woff","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-brands-400.woff"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-brands-400.woff"],"./..\\webfonts\\fa-brands-400.ttf":[["fa-brands-400.7d28c1d8.ttf","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-brands-400.ttf"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-brands-400.ttf"],"./..\\webfonts\\fa-brands-400.svg":[["fa-brands-400.f4ede48f.svg","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-brands-400.svg"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-brands-400.svg"],"./..\\webfonts\\fa-duotone-900.eot":[["fa-duotone-900.9a62fee9.eot","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-duotone-900.eot"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-duotone-900.eot"],"./..\\webfonts\\fa-duotone-900.woff2":[["fa-duotone-900.96c17783.woff2","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-duotone-900.woff2"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-duotone-900.woff2"],"./..\\webfonts\\fa-duotone-900.woff":[["fa-duotone-900.69ceb9f1.woff","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-duotone-900.woff"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-duotone-900.woff"],"./..\\webfonts\\fa-duotone-900.ttf":[["fa-duotone-900.532caf70.ttf","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-duotone-900.ttf"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-duotone-900.ttf"],"./..\\webfonts\\fa-duotone-900.svg":[["fa-duotone-900.83f46164.svg","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-duotone-900.svg"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-duotone-900.svg"],"./..\\webfonts\\fa-light-300.eot":[["fa-light-300.6292b1be.eot","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-light-300.eot"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-light-300.eot"],"./..\\webfonts\\fa-light-300.woff2":[["fa-light-300.26844cce.woff2","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-light-300.woff2"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-light-300.woff2"],"./..\\webfonts\\fa-light-300.woff":[["fa-light-300.2084e4a1.woff","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-light-300.woff"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-light-300.woff"],"./..\\webfonts\\fa-light-300.ttf":[["fa-light-300.7d14bffe.ttf","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-light-300.ttf"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-light-300.ttf"],"./..\\webfonts\\fa-light-300.svg":[["fa-light-300.7948dcad.svg","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-light-300.svg"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-light-300.svg"],"./..\\webfonts\\fa-regular-400.eot":[["fa-regular-400.a843c075.eot","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-regular-400.eot"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-regular-400.eot"],"./..\\webfonts\\fa-regular-400.woff2":[["fa-regular-400.eaeaf398.woff2","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-regular-400.woff2"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-regular-400.woff2"],"./..\\webfonts\\fa-regular-400.woff":[["fa-regular-400.acd70377.woff","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-regular-400.woff"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-regular-400.woff"],"./..\\webfonts\\fa-regular-400.ttf":[["fa-regular-400.763b5e36.ttf","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-regular-400.ttf"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-regular-400.ttf"],"./..\\webfonts\\fa-regular-400.svg":[["fa-regular-400.bdd03e8d.svg","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-regular-400.svg"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-regular-400.svg"],"./..\\webfonts\\fa-solid-900.eot":[["fa-solid-900.44db3ae0.eot","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-solid-900.eot"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-solid-900.eot"],"./..\\webfonts\\fa-solid-900.woff2":[["fa-solid-900.0872f689.woff2","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-solid-900.woff2"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-solid-900.woff2"],"./..\\webfonts\\fa-solid-900.woff":[["fa-solid-900.f2903fcd.woff","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-solid-900.woff"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-solid-900.woff"],"./..\\webfonts\\fa-solid-900.ttf":[["fa-solid-900.b0bf192f.ttf","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-solid-900.ttf"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-solid-900.ttf"],"./..\\webfonts\\fa-solid-900.svg":[["fa-solid-900.9344f971.svg","../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-solid-900.svg"],"../node_modules/@fortawesome/fontawesome-pro/webfonts/fa-solid-900.svg"],"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/regenerator-runtime/runtime.js":[function(require,module,exports) {
+},{"govuk-frontend":"../node_modules/govuk-frontend/govuk/all.js","./components/lbh-accordion/accordion":"../node_modules/lbh-frontend/lbh/components/lbh-accordion/accordion.js","./components/lbh-back-to-top/back-to-top":"../node_modules/lbh-frontend/lbh/components/lbh-back-to-top/back-to-top.js","./components/lbh-button/button":"../node_modules/lbh-frontend/lbh/components/lbh-button/button.js","./components/lbh-character-count/character-count":"../node_modules/lbh-frontend/lbh/components/lbh-character-count/character-count.js","./components/lbh-checkboxes/checkboxes":"../node_modules/lbh-frontend/lbh/components/lbh-checkboxes/checkboxes.js","./components/lbh-cookie-banner/cookie-banner":"../node_modules/lbh-frontend/lbh/components/lbh-cookie-banner/cookie-banner.js","./components/lbh-details/details":"../node_modules/lbh-frontend/lbh/components/lbh-details/details.js","./components/lbh-error-summary/error-summary":"../node_modules/lbh-frontend/lbh/components/lbh-error-summary/error-summary.js","./components/lbh-contact-block/contact-block":"../node_modules/lbh-frontend/lbh/components/lbh-contact-block/contact-block.js","./components/lbh-radios/radios":"../node_modules/lbh-frontend/lbh/components/lbh-radios/radios.js","./components/lbh-tabs/tabs":"../node_modules/lbh-frontend/lbh/components/lbh-tabs/tabs.js","./components/lbh-collapsible/collapsible":"../node_modules/lbh-frontend/lbh/components/lbh-collapsible/collapsible.js"}],"../node_modules/regenerator-runtime/runtime.js":[function(require,module,exports) {
 var define;
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
@@ -19612,16 +19535,20 @@ module.exports = require('./lib/axios');
 
 var _lbhFrontend = require("lbh-frontend");
 
-require("@fortawesome/fontawesome-free/css/all.css");
-
-require("@fortawesome/fontawesome-pro/css/all.css");
-
+//import { initAll } from "lbh-frontend";
 //load the dotenv config in order to use the process.env variables
 var regeneratorRuntime = require("regenerator-runtime");
 
 var dotenv = require('dotenv').config();
 
-var axios = require('axios').default; // Create a variable for the postcode. 
+var axios = require('axios').default; //activate the start button
+
+
+document.getElementById("start-button").onclick = function () {
+  document.getElementById("location-search").hidden = false;
+  document.getElementById("start-button").style.display = "none";
+  window.scrollBy(0, 100);
+}; // Create a variable for the postcode. 
 
 
 var postcode = document.getElementById('postcode'); //Enter key listener that calls the GetAddressesviaPoxy function
@@ -19630,211 +19557,270 @@ postcode.addEventListener('keyup', function (e) {
   if (e.key == 'Enter') {
     GetAddressesViaProxy();
   }
-}); //listener for the clear x in the input
+}); //eventlistener for the button
+
+document.getElementById("search").addEventListener("click", GetAddressesViaProxy); //listener for the clear x in the input
 
 postcode.addEventListener("search", function (e) {
   document.getElementById("error_message").innerHTML = "";
   document.getElementById("addresses").innerHTML = '';
+  document.getElementById("address-details").innerHTML = "";
+  document.getElementById("show-results-button-div").innerHTML = "";
   document.getElementById("results").innerHTML = "";
+  document.getElementById("map-link").innerHTML = "";
+  document.getElementById("map-header").innerHTML = "";
+  document.getElementById("map-iframe").style.display = 'none';
 });
 
 function GetAddressesViaProxy() {
   document.getElementById("error_message").innerHTML = "";
-  document.getElementById("addresses").innerHTML = 'Loading addresses...';
+  document.getElementById("addresses").innerHTML = '<p class="loading-text"> Loading addresses...</p>';
+  document.getElementById("address-details").innerHTML = "";
+  document.getElementById("show-results-button-div").innerHTML = "";
+  document.getElementById("results").innerHTML = "";
   document.getElementById("map-link").innerHTML = "";
-  document.getElementById("results").innerHTML = ""; //Get the postcode value
+  document.getElementById("map-header").innerHTML = "";
+  document.getElementById("map-iframe").style.display = 'none';
+  document.getElementById("addresses").scrollIntoView({
+    block: "nearest"
+  }); //Get the postcode value
 
-  var postcode = document.getElementById("postcode").value;
+  var address_input = document.getElementById("postcode").value; //test agains postcode regex
+
+  var postcode_regex = new RegExp("^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$");
+  var isPostcode = postcode_regex.test(address_input);
   var results = null;
-  var full_address = null;
-  var UPRN = null;
-  document.getElementById("results").innerHTML = ""; //First call to get the list of addresses from a postcode
 
-  fetch("".concat("https://zwb5f0hl7b.execute-api.us-east-1.amazonaws.com/production/address-v2-proxy", "?format=detailed&postcode=").concat(postcode), {
-    method: "get"
-  }).then(function (response) {
-    return response.json();
-  }).then(function (data) {
-    console.log(data); //Get API error messages if the UPRN values are not right
+  if (!address_input) {
+    document.getElementById("error_message").innerHTML = "Please enter some text in the location search.";
+  } else {
+    //prepare query to send to the API, depending if we ave got a postcode or not
+    var APIQueryString = '';
 
-    if (data.data.errors) {
-      document.getElementById("error_message").innerHTML = response.data.errors[0].message;
-      document.getElementById("addresses").innerHTML = ''; //If there are no errors...
+    if (isPostcode) {
+      APIQueryString = "".concat("https://zwb5f0hl7b.execute-api.us-east-1.amazonaws.com/production/address-v2-proxy", "?format=detailed&postcode=").concat(address_input);
     } else {
-      results = data.data.data.address;
-      var pageCount = data.data.data.pageCount;
-      var _index = 0; //If there are no results, the postcode is not right. 
+      APIQueryString = "".concat("https://zwb5f0hl7b.execute-api.us-east-1.amazonaws.com/production/address-v2-proxy", "?format=detailed&query=").concat(address_input);
+    } //First call to get the list of addresses from a postcode
 
-      if (results.length === 0) {
-        document.getElementById("error_message").innerHTML = "No address found at this postcode";
+
+    fetch(APIQueryString, {
+      method: "get"
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      //Get API error messages if the UPRN values are not right
+      if (data.data.errors) {
+        document.getElementById("error_message").innerHTML = response.data.errors[0].message;
+        document.getElementById("addresses").innerHTML = ''; //If there are no errors...
       } else {
-        //If there are results from the addresses proxy, we list them. 
-        document.getElementById("addresses").innerHTML = "<div class='govuk-form-group lbh-form-group'>" + "<select class='govuk-select govuk-!-width-full lbh-select' id='selectedAddress' name='selectedAddress'>";
-        document.getElementById("selectedAddress").innerHTML += "<option disabled selected value> Select your address from the list </option>";
+        results = data.data.data.address;
+        var pageCount = data.data.data.pageCount; //If there are no results, the postcode is not right. 
 
-        for (_index = 0; _index < results.length; ++_index) {
-          full_address = [results[_index].line1, results[_index].line2, results[_index].line3, results[_index].line4].filter(Boolean).join(", ");
-          UPRN = results[_index].UPRN;
-          document.getElementById("selectedAddress").innerHTML += "<option value='" + UPRN + "'>" + full_address + "</option>";
-        } //load more pages of results if needed
+        if (results.length === 0) {
+          document.getElementById("error_message").innerHTML = "No Hackney location found. Please amend your search.";
+          document.getElementById("addresses").innerHTML = '';
+          document.getElementById("address-details").innerHTML = '';
+        } else {
+          //If there are results from the addresses proxy, we list them. 
+          //first, replace list element with a clone of itself, in order to remove previous listeners
+          //let listElement = document.getElementById("addresses");
+          document.getElementById("addresses").replaceWith(document.getElementById("addresses").cloneNode(true)); //now fill the list
 
+          document.getElementById("addresses").innerHTML = "<div class='govuk-form-group lbh-form-group'>" + "<select class='govuk-select govuk-!-width-full lbh-select' id='selectedAddress' name='selectedAddress'>";
+          document.getElementById("selectedAddress").innerHTML = "<option disabled selected value> Select a location from the list </option>";
 
-        if (pageCount > 1) {
-          for (pgindex = 2; pgindex <= pageCount; ++pgindex) {
-            loadAddressAPIPageViaProxy(postcode, pgindex);
-          }
-        } //close list of addresses
-
-
-        document.getElementById("addresses").innerHTML += "</select></div>"; //capture the change event - when an address is selected - we load the list of results (all the planning constrainst affecting the selected address) using the UPRN selected. 
-
-        document.getElementById("addresses").addEventListener('change', function (event) {
-          //get the selected UPRN from the list of addresses
-          var selectedUPRN = document.querySelector('#selectedAddress').value; //call to the planning constraints layer where we have all the planning information for each UPRN
-
-          axios.get("".concat("https://map2.hackney.gov.uk/geoserver/planning/ows/", "?service=WFS&version=1.0.0&request=GetFeature&outputFormat=json&typeName=planning_constraints_by_uprn&cql_filter=uprn='").concat(selectedUPRN, "'"), {}).then(function (res) {
-            console.log(res.data); //Variables
-
-            var iswithinCA = res.data.features[0].properties.within_conservation_area;
-            var iswithinLocallyListedBuilding = res.data.features[0].properties.within_locally_building;
-            var iswithinListedBuilding = res.data.features[0].properties.within_statutory_building;
-            var iswithinTPOArea = res.data.features[0].properties.within_tpo_area;
-            var containsTPOPoint = res.data.features[0].properties.contains_tpo_point;
-            var textSection = "";
-
-            if (iswithinCA === 'yes') {
-              textSection += "<div class='govuk-accordion__section'>\n                <div class='govuk-accordion__section-header'>\n                  <h5 class='govuk-accordion__section-heading'>\n                  <span class='govuk-accordion__section-button' id='default-example-heading-1'> \n                  Conservation Areas \n                  </span></h5>\n                </div>\n                <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>\n                  <ul class='lbh-list lbh-list'><li>Name: " + res.data.features[0].properties.ca_name + "</li></ul>\n                </div>\n              </div>";
+          for (var index = 0; index < results.length; ++index) {
+            if (results[index].addressStatus == 'Approved') {
+              document.getElementById("selectedAddress").innerHTML += "<option value=\"" + results[index].UPRN + "//" + results[index].singleLineAddress + "//" + results[index].usageDescription + "//" + results[index].ward + "\">" + results[index].singleLineAddress + "</option>";
             }
+          } //load more pages of results if needed
 
-            if (iswithinListedBuilding === 'yes') {
-              textSection += "<div class='govuk-accordion__section'>\n                <div class='govuk-accordion__section-header'>\n                  <h5 class='govuk-accordion__section-heading'>\n                  <span class='govuk-accordion__section-button' id='default-example-heading-1'> \n                  Statutory Listed Building\n                  </span></h5>\n                </div>\n                <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>\n                  <ul class='lbh-list lbh-list'><li>List entry number: " + res.data.features[0].properties.statutory_building_list_entry + "<br> Date first listed: " + res.data.features[0].properties.statutory_building_listed_date + "<br> Grade: " + res.data.features[0].properties.statutory_building_grade + "<br> For more information, visit the " + "<a href='" + res.data.features[0].properties.statutory_building_hyperlink + "' target='_black'>Historic England website.</a></li></ul>\n                </div>\n              </div>";
+
+          if (pageCount > 1) {
+            for (var pgindex = 2; pgindex <= pageCount; ++pgindex) {
+              loadAddressAPIPageViaProxy(postcode, pgindex);
             }
-
-            if (iswithinLocallyListedBuilding === 'yes') {
-              textSection += "<div class='govuk-accordion__section'>\n                <div class='govuk-accordion__section-header'>\n                  <h5 class='govuk-accordion__section-heading'>\n                  <span class='govuk-accordion__section-button' id='default-example-heading-1'> \n                  Locally Listed Building\n                  </span></h5>\n                </div>\n                <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>\n                  <ul class='lbh-list lbh-list'><li>List entry number: " + res.data.features[0].properties.locally_building_list_entry + "<br> Date first listed: " + res.data.features[0].properties.locally_building_listed_date + "<br> Grade: " + res.data.features[0].properties.locally_building_grade + "<br> For more information, visit the " + "<a href='" + res.data.features[0].properties.locally_building_hyperlink + "' target='_black'>Historic England website.</a></li></ul>\n                </div>\n              </div>";
-            }
-
-            if (iswithinTPOArea === 'yes') {
-              textSection += "<div class='govuk-accordion__section'>\n              <div class='govuk-accordion__section-header'>\n                <h5 class='govuk-accordion__section-heading'>\n                <span class='govuk-accordion__section-button' id='default-example-heading-1'> \n                Tree Preservation Orders (TPOs)\n                </span></h5>\n              </div>\n              <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>\n                <ul class='lbh-list lbh-list'><li>TPO number: " + res.data.features[0].properties.tpo_area_number + "<br> Specie: " + res.data.features[0].properties.tpo_area_specie + "</a></li></ul>\n                </div>\n            </div>";
-            }
-
-            if (containsTPOPoint === 'yes') {
-              textSection += "<div class='govuk-accordion__section'>\n              <div class='govuk-accordion__section-header'>\n                <h5 class='govuk-accordion__section-heading'>\n                <span class='govuk-accordion__section-button' id='default-example-heading-1'> \n                Tree Preservation Orders (TPOs)\n                </span></h5>\n              </div>\n              <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>\n                <ul class='lbh-list lbh-list'><li>TPO number: " + res.data.features[0].properties.tpo_point_number + "<br> Specie: " + res.data.features[0].properties.tpo_point_specie + "</a></li></ul>\n              </div>\n            </div>";
-            } //TODO Split A4D list into list items
-            //let a4d_list = res.data.features[0].properties.a4d_names.split(","); 
-            // textSection += 
-            //   `<div class='govuk-accordion__section'>
-            //     <div class='govuk-accordion__section-header'>
-            //       <h5 class='govuk-accordion__section-heading'>
-            //       <span class='govuk-accordion__section-button' id='default-example-heading-1'> 
-            //       Article 4 Directions
-            //       </span></h5>
-            //     </div>
-            //     <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>
-            //       <ul class='lbh-list lbh-list'>`   
-            //       for (index = 0; index < a4d_list.length; ++index) {
-            //         `<li>` +a4d_list[index]+`</li>`
-            //        }
-            //       `</ul>
-            //     </div>
-            //   </div>`;
+          } //close list of addresses
 
 
-            textSection += "<div class='govuk-accordion__section'>\n              <div class='govuk-accordion__section-header'>\n                <h5 class='govuk-accordion__section-heading'>\n                <span class='govuk-accordion__section-button' id='default-example-heading-1'> \n                Article 4 Directions\n                </span></h5>\n              </div>\n              <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>\n                <ul class='lbh-list lbh-list'><li>" + res.data.features[0].properties.a4d_names + "</li></ul>\n              </div>\n            </div>"; //List the results using an acordion. 
+          document.getElementById("addresses").innerHTML += "</select></div>"; //capture the change event - when an address is selected - we load the list of results (all the planning constrainst affecting the selected address) using the UPRN selected. 
 
-            document.getElementById('results').innerHTML += "<h3>List of constraints</h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>"; // document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Article 4 Directions </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'>";
-            //   for (index = 0; index < a4d_list.length; ++index) {
-            //     document.getElementById('results').innerHTML +="<li>" +a4d_list[index]+"</li>";
-            //   };
-            // "</ul></div></div>"
-            //document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Article 4 Directions </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>" + res.data.features[0].properties.a4d_names +"</li></ul></div></div>";
-            //document.getElementById('results').innerHTML += "</div>";
-            //TODO Init only the accordion component
-            //Activate the JS of the component
+          document.getElementById("addresses").addEventListener('change', function (event) {
+            //get the selected UPRN and address details from the list of addresses
+            var selectedAddressDetails = document.querySelector('#selectedAddress').value.split('//');
+            var selectedUPRN = selectedAddressDetails[0];
+            showAddressDetails(selectedAddressDetails); //hide components below address details
 
-            (0, _lbhFrontend.initAll)(); //Add link to the planning constraints map
-
-            document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/conservation-areas-with-search/index.html' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
-          }); // .catch((error) => {
-          //   //Catch geoserver error
-          //   document.getElementById("error_message").innerHTML = 'Sorry, there was a problem retrieving the results for this address.';
-          // })
-        });
+            document.getElementById("results").innerHTML = "";
+            document.getElementById("map-link").innerHTML = "";
+            document.getElementById("map-header").innerHTML = "";
+            document.getElementById("map-iframe").style.display = 'none';
+          });
+          window.scrollBy(0, 50);
+        }
       }
-    }
-  });
+    }).catch(function (error) {
+      document.getElementById("error_message").innerHTML = "Sorry, an error occured while retrieving locations";
+      document.getElementById("addresses").innerHTML = '';
+    });
+  }
 }
 
 ; //function to add one page of results to the options list
 
 function loadAddressAPIPageViaProxy(postcode, pg) {
-  var res = fetch("".concat("https://zwb5f0hl7b.execute-api.us-east-1.amazonaws.com/production/address-v2-proxy", "?format=detailed&postcode=").concat(postcode, "&page=").concat(pg)); // const res = await fetch(`${process.env.ADDRESSES_API_PROXY_STAGING}?format=detailed&postcode=${postcode}&page=${pg}`);
+  var results = null;
+  var full_address = null;
+  var UPRN = null;
+  fetch("".concat("https://zwb5f0hl7b.execute-api.us-east-1.amazonaws.com/production/address-v2-proxy", "?format=detailed&query=").concat(postcode, "&page=").concat(pg), {
+    method: "get"
+  }).then(function (response) {
+    return response.json();
+  }).then(function (data) {
+    results = data.data.data.address;
 
-  var response = res.json();
-  results = response.data.data.address; //console.log(results);
-
-  for (index = 0; index < results.length; ++index) {
-    full_address = [results[index].line1, results[index].line2, results[index].line3, results[index].line4].filter(Boolean).join(", ");
-    UPRN = results[index].UPRN; //console.log(coordinatesEN);
-
-    document.getElementById("selectedAddress").innerHTML += "<option value='" + UPRN + "'>" + full_address + "</option>";
-  }
-
-  document.getElementById("addresses").addEventListener('change', function (event) {
-    var selectedUPRN = document.querySelector('#selectedAddress').value;
-    axios.get("".concat("https://map2.hackney.gov.uk/geoserver/planning/ows/", "?service=WFS&version=1.0.0&request=GetFeature&outputFormat=json&typeName=planning_constraints_by_uprn&cql_filter=uprn='").concat(selectedUPRN, "'"), {}).then(function (res) {
-      console.log(res.data);
-      var iswithinCA = res.data.features[0].properties.within_conservation_area;
-      var iswithinLocallyListedBuilding = res.data.features[0].properties.within_locally_building;
-      var iswithinListedBuilding = res.data.features[0].properties.within_statutory_building;
-      var iswithinTPOArea = res.data.features[0].properties.within_tpo_area;
-      var containsTPOPoint = res.data.features[0].properties.contains_tpo_point; //List the results using an acordion. 
-      //TODO Merge everything in one acordion
-      //document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'><span><i class='far fa-map-marker'></i></span>Conservation Areas</span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>CA Name</li></ul></div></div>";
-
-      document.getElementById("results").innerHTML += "<h3>List of constraints</h3"; //document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>";
-
-      if (iswithinCA === 'yes') {
-        document.getElementById('results').innerHTML += "<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Conservation Areas </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>" + "Name: " + res.data.features[0].properties.ca_name + "</li></ul></div></div>";
+    for (var index = 0; index < results.length; ++index) {
+      if (results[index].addressStatus == 'Approved') {
+        document.getElementById("selectedAddress").innerHTML += "<option value=\"" + results[index].uprn + "/" + results[index].singleLineAddress + "/" + results[index].usageDescription + "/" + results[index].ward + "\">" + results[index].singleLineAddress + "</option>";
       }
-
-      if (iswithinListedBuilding === 'yes') {
-        document.getElementById('results').innerHTML += "<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Statutory Listed Buildings </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>" + "List entry number: " + res.data.features[0].properties.statutory_building_list_entry + "<br> Date first listed: " + res.data.features[0].properties.statutory_building_listed_date + "<br> Grade: " + res.data.features[0].properties.statutory_building_grade + "<br> For more information, visit the " + "<a href='" + res.data.features[0].properties.statutory_building_hyperlink + "' target='_black'>Historic England website.</a>" + "</li></ul></div></div>";
-      }
-
-      if (iswithinLocallyListedBuilding === 'yes') {
-        document.getElementById('results').innerHTML += "<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Locally Listed Buildings </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>" + "List entry number: " + res.data.features[0].properties.locally_building_list_entry + "<br> Date first listed: " + res.data.features[0].properties.locally_building_listed_date + "<br> Grade: " + res.data.features[0].properties.locally_building_grade + "<br> For more information, visit the " + "<a href='" + res.data.features[0].properties.locally_building_hyperlink + "' target='_black'>Historic England website.</a>" + "</li></ul></div></div>";
-      }
-
-      if (iswithinTPOArea === 'yes' || containsTPOPoint === 'yes') {
-        //TODO Merge the accordion for TPO area and points
-        document.getElementById('results').innerHTML += "<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Tree Preservation Orders </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>" + "<br> TPO number: " + res.data.features[0].properties.tpo_area_number + "<br> TPO Specie: " + +res.data.features[0].properties.tpo_area_specie + "</li></ul></div></div>";
-        document.getElementById('results').innerHTML += "<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Tree Preservation Orders </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>" + "<br> TPO number: " + res.data.features[0].properties.tpo_point_number + "<br> TPO Specie: " + +res.data.features[0].properties.tpo_point_specie + "</li></ul></div></div>";
-      } //TODO Comment out the code for the a4d list
-      // const a4d_list = res.data.features[0].properties.a4d_names.split(",");
-      // document.getElementById('results').innerHTML +="<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Article 4 Directions </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'>";
-      //   for (index = 0; index < a4d_list.length; ++index) {
-      //     document.getElementById('results').innerHTML +="<li>" +a4d_list[index]+"</li>";
-      //   };
-      // "</ul></div></div>"
-
-
-      document.getElementById('results').innerHTML += "<div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'><div class='govuk-accordion__section'><div class='govuk-accordion__section-header'><h5 class='govuk-accordion__section-heading'> <span class='govuk-accordion__section-button' id='default-example-heading-1'> Article 4 Directions </span></h5></div><div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'><ul class='lbh-list lbh-list'><li>" + res.data.features[0].properties.a4d_names + "</li></ul></div></div>"; //document.getElementById('results').innerHTML += "</div>";
-      //TODO Init only the accordion component
-      //Activate the JS of the component
-
-      (0, _lbhFrontend.initAll)(); //Link to the planning constraints map
-
-      document.getElementById("map-link").innerHTML = "<a href='https://map2.hackney.gov.uk/maps/conservation-areas-with-search/index.html' target='_blank'><span><i class='far fa-map-marker'></i></span></i> View map showing the plannning constraints</a>";
-    }).catch(function (error) {
-      //Catch geoserver error
-      document.getElementById("error_message").innerHTML = 'Sorry, there was a problem retrieving the results for this address.';
-    });
+    }
   });
 }
 
 ;
-},{"lbh-frontend":"../node_modules/lbh-frontend/lbh/all.js","@fortawesome/fontawesome-free/css/all.css":"../node_modules/@fortawesome/fontawesome-free/css/all.css","@fortawesome/fontawesome-pro/css/all.css":"../node_modules/@fortawesome/fontawesome-pro/css/all.css","regenerator-runtime":"../node_modules/regenerator-runtime/runtime.js","dotenv":"../node_modules/dotenv/lib/main.js","axios":"../node_modules/axios/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+function showAddressDetails(selectedAddressDetails) {
+  document.getElementById('address-details').innerHTML = "<h3>Selected location: </h3>";
+  document.getElementById('address-details').innerHTML += "<dl class=\"govuk-summary-list lbh-summary-list\">\n      <div class=\"govuk-summary-list__row\">\n        <dt class=\"govuk-summary-list__key\">Address</dt>\n        <dd class=\"govuk-summary-list__value\">".concat(toTitleCase(selectedAddressDetails[1]), "</dd>\n      </div>\n      <div class=\"govuk-summary-list__row\">\n        <dt class=\"govuk-summary-list__key\">Usage</dt>\n        <dd class=\"govuk-summary-list__value\">").concat(selectedAddressDetails[2], "</dd>\n      </div>\n      <div class=\"govuk-summary-list__row\">\n        <dt class=\"govuk-summary-list__key\">Ward</dt>\n        <dd class=\"govuk-summary-list__value\">").concat(selectedAddressDetails[3], "</dd>\n      </div>\n      <div class=\"govuk-summary-list__row\">\n        <dt class=\"govuk-summary-list__key\">Unique Property <br>Reference Number</dt>\n        <dd class=\"govuk-summary-list__value\">").concat(selectedAddressDetails[0], "</dd>\n      </div>\n    </dl>");
+  showPlanningInfoButton(selectedAddressDetails[0]); // window.parent.scrollBy(0,200);
+}
+
+function showPlanningInfoButton(selectedUPRN) {
+  //Add button to load planning info as accordion  
+  document.getElementById("show-results-button-div").innerHTML = "<button id='show-results-button' class='govuk-button  lbh-button' data-module='govuk-button'><span><i class='far fa-list'></i></span></i> &nbsp; View planning information on this location</button>"; //local test link
+  //document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='http://localhost:9000/planning-constraints/index.html?uprn="+ selectedUPRN + "' target='_blank'><span><i class="far fa-map-marker"></i></span></i> &nbsp; View planning information on a map</button>";
+  //load the map when clicking on the button
+
+  document.getElementById("show-results-button").onclick = function loadInfo() {
+    loadPlanningConstraints(selectedUPRN);
+  }; //Scroll down to show the show results button
+
+
+  document.getElementById("show-results-button-div").scrollIntoView(true);
+}
+
+function loadPlanningConstraints(selectedUPRN) {
+  //message about loading
+  document.getElementById('results').innerHTML = '<p class="loading-text"> Retrieving planning information...</p>';
+  document.getElementById("map-link").innerHTML = "";
+  document.getElementById("map-iframe").style.display = 'none';
+  document.getElementById("results").scrollIntoView({
+    block: "nearest"
+  }); //call to the planning constraints layer where we have all the planning information for each UPRN
+
+  axios.get("".concat("https://map2.hackney.gov.uk/geoserver/planning/ows/", "?service=WFS&version=1.0.0&request=GetFeature&outputFormat=json&typeName=planning_constraints_by_uprn&cql_filter=uprn='").concat(selectedUPRN, "'")).then(function (res) {
+    //Variables
+    var iswithinCA = res.data.features[0].properties.within_conservation_area;
+    var iswithinLocallyListedBuilding = res.data.features[0].properties.within_locally_building;
+    var iswithinListedBuilding = res.data.features[0].properties.within_statutory_building;
+    var iswithinTPOArea = res.data.features[0].properties.within_tpo_area;
+    var containsTPOPoint = res.data.features[0].properties.contains_tpo_point;
+    var iswithinLivePlanningApp = res.data.features[0].properties.within_live_planning_app;
+    var ward = res.data.features[0].properties.ward;
+    var textSection = "";
+
+    if (iswithinCA === 'yes') {
+      textSection += "<div class='govuk-accordion__section'>\n          <div class='govuk-accordion__section-header'>\n            <h5 class='govuk-accordion__section-heading'>\n            <span class='govuk-accordion__section-button' id='default-example-heading-1'> \n            Conservation Area \n            </span></h5>\n          </div>\n          <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>\n          <p>This location is inside (or partly inside) ".concat(res.data.features[0].properties.ca_name, " conservation area.</p>\n          </div>\n        </div>");
+    }
+
+    if (iswithinListedBuilding === 'yes') {
+      textSection += "<div class='govuk-accordion__section'>\n          <div class='govuk-accordion__section-header'>\n            <h5 class='govuk-accordion__section-heading'>\n            <span class='govuk-accordion__section-button' id='default-example-heading-1'> \n            Statutory Listed Building\n            </span></h5>\n          </div>\n          <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>\n          <p>This location is in a statutory listed building:</p> \n          <ul class='lbh-list lbh-list'><li>List entry number: ".concat(res.data.features[0].properties.statutory_building_list_entry, " <br> Date first listed: ").concat(res.data.features[0].properties.statutory_building_listed_date, " <br> Grade: ").concat(res.data.features[0].properties.statutory_building_grade, " <br> For more information, visit the <a href='").concat(res.data.features[0].properties.statutory_building_hyperlink, "' target='_blank'>Historic England website.</a></li></ul>\n          </div>\n        </div>");
+    }
+
+    if (iswithinLocallyListedBuilding === 'yes') {
+      textSection += "<div class='govuk-accordion__section'>\n          <div class='govuk-accordion__section-header'>\n            <h5 class='govuk-accordion__section-heading'>\n            <span class='govuk-accordion__section-button' id='default-example-heading-1'> \n            Locally Listed Building\n            </span></h5>\n          </div>\n          <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>\n          <p>This location is in a locally listed building: </p>  \n          <ul class='lbh-list lbh-list'><li>List entry number: ".concat(res.data.features[0].properties.locally_building_list_entry, " <br> Date first listed: ").concat(res.data.features[0].properties.locally_building_listed_date, " <br> Grade: ").concat(res.data.features[0].properties.locally_building_grade, " <br> For more information, visit the <a href='").concat(res.data.features[0].properties.locally_building_hyperlink, "' target='_blank'>Historic England website.</a></li></ul>\n          </div>\n        </div>");
+    }
+
+    if (iswithinTPOArea === 'yes') {
+      textSection += "<div class='govuk-accordion__section'>\n        <div class='govuk-accordion__section-header'>\n          <h5 class='govuk-accordion__section-heading'>\n          <span class='govuk-accordion__section-button' id='default-example-heading-1'> \n          Tree Preservation Orders (TPOs)\n          </span></h5>\n        </div>\n        <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>\n        <p>There is at least one protected tree within the location boundaries:</p> \n          <ul class='lbh-list lbh-list'><li>TPO number: ".concat(res.data.features[0].properties.tpo_area_number, " <br> Specie: ").concat(res.data.features[0].properties.tpo_area_specie, " </a></li></ul>\n          </div>\n      </div>");
+    }
+
+    if (containsTPOPoint === 'yes') {
+      textSection += "<div class='govuk-accordion__section'>\n        <div class='govuk-accordion__section-header'>\n          <h5 class='govuk-accordion__section-heading'>\n          <span class='govuk-accordion__section-button' id='default-example-heading-1'> \n          Tree Preservation Orders (TPOs)\n          </span></h5>\n        </div>\n        <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>\n        <p>There is at least one protected tree within the location boundaries:</p>\n          <ul class='lbh-list lbh-list'><li>TPO number: ".concat(res.data.features[0].properties.tpo_point_number, " <br> Specie: ").concat(res.data.features[0].properties.tpo_point_specie, " </a></li></ul>\n        </div>\n      </div>");
+    }
+
+    if (iswithinLivePlanningApp === 'yes') {
+      textSection += "<div class='govuk-accordion__section'>\n            <div class='govuk-accordion__section-header'>\n              <h5 class='govuk-accordion__section-heading'>\n              <span class='govuk-accordion__section-button' id='default-example-heading-1'> \n              Active Planning Applications\n              </span></h5>\n            </div>\n            <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>\n            <p>There is at least one ongoing planning application on this location:</p>\n              <ul class='lbh-list lbh-list'><li>Planning Application Reference Number: ".concat(res.data.features[0].properties.planning_app_ref_number, " <br> Planning Application Type: ").concat(res.data.features[0].properties.planning_app_type, " <br> Date it was received: ").concat(res.data.features[0].properties.planning_app_received_date, " <br>  ").concat(res.data.features[0].properties.planning_app_register_link, "</a></li></ul>\n            </div>\n          </div>");
+    } //Split A4D names as list items
+
+
+    var a4d_list = res.data.features[0].properties.a4d_names.split(",");
+    var a4d_list_items = "";
+
+    for (var index = 0; index < a4d_list.length; ++index) {
+      a4d_list_items += "<li>" + a4d_list[index] + "</li>";
+    }
+
+    textSection += "<div class='govuk-accordion__section'>\n          <div class='govuk-accordion__section-header'>\n            <h5 class='govuk-accordion__section-heading'>\n            <span class='govuk-accordion__section-button' id='default-example-heading-1'> \n            Article 4 Directions\n            </span></h5>\n          </div>\n          <div id='default-example-content-1' class='govuk-accordion__section-content' aria-labelledby='default-example-heading-1'>\n            <p>This location falls in the following <a href=\"https://hackney.gov.uk/article-4-directions\" target='_blank'>Article 4 Directions</a> areas:</p>\n            <ul class='lbh-list lbh-list--bullet'>" + a4d_list_items + "</ul>\n          </div>\n        </div>"; //List the results using an accordion. 
+
+    document.getElementById('results').innerHTML = "<h3>Planning information relevant to this location: </h3><div class='govuk-accordion myClass lbh-accordion' data-module='govuk-accordion' id='default-example' data-attribute='value'>" + textSection + "</div>"; //remove the button above
+
+    document.getElementById("show-results-button-div").innerHTML = ""; //Activate the JS of the component
+
+    var accordion = document.querySelector('[data-module="govuk-accordion"]');
+
+    if (accordion) {
+      new _lbhFrontend.Accordion(accordion).init();
+    } //Add button to the planning constraints map  
+    //live link    
+
+
+    document.getElementById("map-link").innerHTML = "<button id='map-link-button' class='govuk-button  lbh-button' data-module='govuk-button'><span><i class='far fa-map-marker'></i></span></i> &nbsp; View this planning information on a map</button>"; //local test link
+    //document.getElementById("map-link").innerHTML = "<button class='govuk-button  lbh-button' data-module='govuk-button' href='http://localhost:9000/planning-constraints/index.html?uprn="+ selectedUPRN + "' target='_blank'><span><i class="far fa-map-marker"></i></span></i> &nbsp; View planning information on a map</button>";
+    //load the map when clicking on the button
+
+    document.getElementById("map-link").onclick = function loadMap() {
+      document.getElementById('map-header').innerHTML = '<p class="loading-text"> Loading map...</p>';
+      document.getElementById("map-header").scrollIntoView({
+        block: "nearest"
+      });
+      document.getElementById("map-iframe").src = 'https://map2.hackney.gov.uk/maps/planning-constraints/embed?uprn=' + selectedUPRN;
+      document.getElementById("map-iframe").style.display = 'block';
+      setTimeout(function () {
+        document.getElementById("map-header").innerHTML = "<h3>Map view:</h3>";
+      }, 4500);
+      setTimeout(function () {
+        document.getElementById("map-link").innerHTML = "";
+      }, 4500);
+      setTimeout(function () {
+        document.getElementById("map-header").scrollIntoView(true);
+      }, 4500); //Scroll down to show the map
+
+      window.scrollBy(0, 400);
+    }; //Scroll down to see the results list
+
+
+    document.getElementById("map-header").scrollIntoView(true);
+  }).catch(function (error) {
+    //Catch geoserver error
+    document.getElementById("error_message").innerHTML = 'Sorry, there was a problem retrieving the results for this address.';
+  });
+}
+
+function toTitleCase(str) {
+  var wordArr = str.split(" ");
+  var i = 0;
+  var titeCaseStr = '';
+
+  for (i = 0; i < wordArr.length - 2; i++) {
+    titeCaseStr += wordArr[i][0].toUpperCase() + wordArr[i].substring(1).toLowerCase() + " ";
+  }
+
+  titeCaseStr += wordArr[wordArr.length - 2] + " " + wordArr[wordArr.length - 1];
+  return titeCaseStr;
+}
+},{"lbh-frontend":"../node_modules/lbh-frontend/lbh/all.js","regenerator-runtime":"../node_modules/regenerator-runtime/runtime.js","dotenv":"../node_modules/dotenv/lib/main.js","axios":"../node_modules/axios/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -19862,7 +19848,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59042" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52999" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
